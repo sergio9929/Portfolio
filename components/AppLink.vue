@@ -12,7 +12,13 @@ const props = defineProps({
     to: {
         required: true
     },
-    icon: {}
+    icon: {},
+    visibility: {
+        type: String,
+        validator(value) {
+            return value == 'low'
+        }
+    }
 })
 
 onBeforeRouteLeave((to, from) => {
@@ -23,7 +29,7 @@ onBeforeRouteLeave((to, from) => {
 </script>
 
 <template>
-    <NuxtLink class="link" :class="[{'link--icon-only': !$slots.default}, (theme ? `link--${theme}` : '')]" :to="props.to" target="_blank">
+    <NuxtLink class="link" :class="[{'link--icon-only': !$slots.default}, (theme ? `link--${theme}` : ''), (visibility ? `link--${visibility}` : '')]" :to="props.to" target="_blank">
         <slot />
         <Component :is="props.icon" class="link__icon" />
     </NuxtLink>
@@ -41,8 +47,11 @@ onBeforeRouteLeave((to, from) => {
     gap: .5em;
     align-items: center;
     box-shadow: 0 0 0 1em transparent;
+    text-decoration: none;
+    font-style: normal;
+    font-weight: normal;
 
-    transition-property: scale, box-shadow;
+    transition-property: scale, box-shadow, opacity;
     transition-duration: .2s;
 }
 
@@ -54,6 +63,14 @@ onBeforeRouteLeave((to, from) => {
     transition-duration: .1s;
     box-shadow: 0 0 0 2em var(--border-color);
     scale: 1;
+}
+
+.link--low {
+    opacity: .1;
+}
+
+.link--low:hover, .link--low:focus-visible {
+    opacity: 1;
 }
 
 .link--icon-only {
@@ -72,6 +89,6 @@ onBeforeRouteLeave((to, from) => {
 
 .link__icon {
     display: block;
-    width: 1.5em;
+    width: 1.2em;
 }
 </style>

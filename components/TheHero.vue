@@ -250,7 +250,8 @@ function jumpOutOfSlider() {
         </div>
         <div class="hero__buttons" ref="heroButtons">
             <AppButtonSecondary :style="{ visibility: currentElement != 0 ? 'visible' : 'hidden' }"
-                :icon="ArrowLeftIcon" @click="jumpToElement(currentElement - 1)" />
+                class="button--hero-left" :icon="ArrowLeftIcon" @click="jumpToElement(currentElement - 1)"
+                visibility="low" />
 
             <div class="hero__button-group ">
                 <AppLink v-if="sliderData[currentElement].link" :to="sliderData[currentElement].link">Ver más</AppLink>
@@ -260,11 +261,13 @@ function jumpOutOfSlider() {
                 <AppFakeButton v-else theme="warning">No publicada</AppFakeButton>
                 <AppLinkSecondary :to="sliderData[currentElement].img" :icon="PhotoIcon">
                     Ver</AppLinkSecondary>
+                <AppButtonSecondary v-if="currentElement == sliderData.length - 1" :icon="ArrowDownIcon"
+                    @click="jumpOutOfSlider" class="button--habilities">Habilidades</AppButtonSecondary>
             </div>
 
-            <AppButtonSecondary v-if="currentElement < sliderData.length - 1" :icon="ArrowRightIcon"
-                @click="jumpToElement(currentElement + 1)" />
-            <AppButtonSecondary v-else :icon="ArrowDownIcon" @click="jumpOutOfSlider" />
+            <AppButtonSecondary :style="{ visibility: currentElement < sliderData.length - 1 ? 'visible' : 'hidden' }"
+                class="button--hero-right" :icon="ArrowRightIcon" @click="jumpToElement(currentElement + 1)"
+                visibility="low" />
         </div>
     </div>
 </template>
@@ -338,6 +341,18 @@ function jumpOutOfSlider() {
 
     .hero__button-group :first-child {
         grid-area: a;
+    }
+
+    .button--hero-left {
+        grid-area: b;
+    }
+
+    .button--hero-right {
+        grid-area: d;
+    }
+
+    .button--habilities {
+        grid-area: c / d;
     }
 
     .link,
