@@ -53,11 +53,17 @@ const props = defineProps({
     transform-origin: bottom;
     border: 1px solid transparent;
     border-bottom-width: 0;
+
+    transition: border-radius .2s;
 }
 
 .element:hover {
     box-shadow: 0 0 0 .5em v-bind('props.backgroundColor');
     z-index: 1;
+}
+
+.element:hover .element__img {
+    border-radius: .5rem;
 }
 
 @media (max-width: 768px) {
@@ -66,7 +72,11 @@ const props = defineProps({
     }
 
     .element__img {
-        border-radius: .3rem;
+        border-radius: .3rem .3rem 0 0;
     }
+
+    .element:hover .element__img {
+    border-radius: .3rem;
+}
 }
 </style>

@@ -1,1 +1,3 @@
-[Ir a la página](https://sergio9929.github.io/Portfolio/)
+## Esta página está publicada usando firebase hosting
+
+[Ir a la página](https://sergio-rodriguez.web.app/)

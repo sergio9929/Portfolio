@@ -214,8 +214,7 @@ function jumpToElement(index) {
             }
         }, '<').add(() => {
             window.open(sliderData.value[currentElement.value].externalLink, '_blank').focus();
-
-        }, '-=.32').to(heroBackground.value, {
+        }, '-=.35').to(heroBackground.value, {
             backgroundColor: 'transparent',
         })
         if (!sliderData.value[currentElement.value].externalLink) return
