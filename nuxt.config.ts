@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
     ssr: true,
     meta: {
-        titleTemplate: '%s | Portfolio',
+        titleTemplate: 'Sergio Rodriguez | Portfolio',
         link: [
             { rel: 'stylesheet', href: 'https://api.fontshare.com/v2/css?f[]=satoshi@700,400&display=swap' }
         ],

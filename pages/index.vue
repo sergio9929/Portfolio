@@ -38,7 +38,7 @@ onMounted(() => {
 <template>
     <div class="container" :class="{ 'container--footer-visible': footerVisible }"
         ref="container">
-        <!-- <TheStartup /> -->
+        <TheStartup />
         <TheHero />
         <SectionHabilidades />
         <SectionExperiencia />
