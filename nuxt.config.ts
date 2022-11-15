@@ -14,7 +14,4 @@ export default defineNuxtConfig({
     css: [
         'assets/style.css',
     ],
-    app: {
-        buildAssetsDir: 'assets'
-    }
 })
