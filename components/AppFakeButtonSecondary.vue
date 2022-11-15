@@ -7,13 +7,19 @@ const props = defineProps({
             return ['dark', 'warning'].includes(value)
         }
     },
-    icon: {}
+    icon: {},
+    visibility: {
+        type: String,
+        validator(value) {
+            return value == 'low'
+        }
+    }
 })
 
 </script>
 
 <template>
-    <span class="button" :class="[{'button--icon-only': !$slots.default}, (theme ? `button--${theme}` : '')]">
+    <span class="button" :class="[{'button--icon-only': !$slots.default}, (theme ? `button--${theme}` : ''), (visibility ? `button--${visibility}` : '')]">
         <slot />
         <Component :is="props.icon" class="button__icon" />
     </span>
@@ -29,8 +35,10 @@ const props = defineProps({
     display: inline-flex;
     gap: .5em;
     align-items: center;
+}
 
-    transition: scale .2s;
+.button--low {
+    opacity: .1;
 }
 
 .button--icon-only {
@@ -49,6 +57,6 @@ const props = defineProps({
 
 .button__icon {
     display: block;
-    width: 1.5em;
+    width: 1.2em;
 }
 </style>
