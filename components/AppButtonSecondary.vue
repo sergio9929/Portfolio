@@ -27,6 +27,8 @@ const props = defineProps({
 
 <style scoped>
 .button {
+    --color: var(--primary-color);
+
     -webkit-tap-highlight-color: transparent;
     appearance: none;
     font-size: inherit;
@@ -34,11 +36,11 @@ const props = defineProps({
     border: none;
     cursor: pointer;
     
+    box-shadow: inset 0 0 0 var(--border-width) var(--color);
     background-color: transparent;
-    color: var(--primary-color);
+    color: var(--color);
     padding: .5em 1em;
     border-radius: 1em;
-    box-shadow: inset 0 0 0 var(--border-width) var(--primary-color);
     text-decoration: none;
     display: inline-flex;
     gap: .5em;
@@ -54,7 +56,7 @@ const props = defineProps({
 
 .button:active {
     transition-duration: .1s;
-    box-shadow: inset 0 0 0 calc(var(--border-width) * 2) var(--primary-color);
+    box-shadow: inset 0 0 0 calc(var(--border-width) * 2) var(--color);
     scale: 1;
 }
 
@@ -71,13 +73,11 @@ const props = defineProps({
 }
 
 .button--dark {
-    box-shadow: inset 0 0 0 var(--border-width) var(--base-color);
-    color: var(--base-color);
+    --color: var(--base-color);
 }
 
 .button--warning {
-    box-shadow: inset 0 0 0 var(--border-width) var(--warning-color);
-    color: var(--primary-color);
+    --color: var(--warning-color);
 }
 
 .button__icon {
