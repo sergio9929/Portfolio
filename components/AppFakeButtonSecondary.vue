@@ -47,11 +47,11 @@ const props = defineProps({
     padding: .5em .6em;
 }
 
-.link--dark {
+.button--dark {
     --color: var(--base-color);
 }
 
-.link--warning {
+.button--warning {
     --color: var(--warning-color);
 }
 
