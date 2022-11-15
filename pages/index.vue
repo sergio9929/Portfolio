@@ -38,7 +38,7 @@ onMounted(() => {
 <template>
     <div class="container" :class="{ 'container--footer-visible': footerVisible }"
         ref="container">
-        <TheStartup />
+        <!-- <TheStartup /> -->
         <TheHero />
         <SectionHabilidades />
         <SectionExperiencia />
@@ -54,5 +54,9 @@ onMounted(() => {
 
 .container--footer-visible {
     transform: scale(.9);
+}
+
+.footer__title {
+    font-size: 3rem;
 }
 </style>

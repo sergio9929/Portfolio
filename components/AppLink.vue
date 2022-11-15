@@ -1,6 +1,4 @@
 <script setup>
-import { onBeforeRouteLeave } from 'vue-router';
-
 
 const props = defineProps({
     theme: {
@@ -19,11 +17,6 @@ const props = defineProps({
             return value == 'low'
         }
     }
-})
-
-onBeforeRouteLeave((to, from) => {
-    console.log(to)
-    return false
 })
 
 </script>

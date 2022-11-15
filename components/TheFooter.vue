@@ -1,5 +1,5 @@
 <script setup>
-import { DocumentTextIcon } from '@heroicons/vue/24/outline'
+import { DocumentTextIcon, CommandLineIcon } from '@heroicons/vue/24/outline'
 
 const footerVisible = useFooterVisible()
 
@@ -24,10 +24,23 @@ onMounted(() => {
 <template>
     <footer class="footer" :class="{ 'footer--footer-visible': footerVisible }">
         <AppSection>
-            <AppLinkSecondary theme="dark" to="mailto:sergio9929@hotmail.com">sergio9929@hotmail.com</AppLinkSecondary>
-            <AppLinkSecondary theme="dark" to="tel:+34622593344">622 59 33 44</AppLinkSecondary>
-            <AppLinkSecondary theme="dark" to="Sergio Rodriguez CV.pdf" :icon="DocumentTextIcon">Descargar CV</AppLinkSecondary>
-            <AppFakeButtonSecondary theme="dark">España > Vizcaya > Durango</AppFakeButtonSecondary>
+            <h2 class="footer__title">Recursos</h2>
+            <div class="footer__buttons">
+                <AppLinkSecondary theme="dark" to="Sergio Rodriguez CV.pdf" :icon="DocumentTextIcon">Descargar CV
+                </AppLinkSecondary>
+                <AppLinkSecondary theme="dark" to="https://github.com/sergio9929/Portfolio" :icon="CommandLineIcon">Código fuente
+                </AppLinkSecondary>
+            </div>
+        </AppSection>
+        
+        <AppSection>
+            <h2 class="footer__title">Contacto</h2>
+            <div class="footer__buttons">
+                <AppLinkSecondary theme="dark" to="mailto:sergio9929@hotmail.com">sergio9929@hotmail.com
+                </AppLinkSecondary>
+                <AppLinkSecondary theme="dark" to="tel:+34622593344">622 59 33 44</AppLinkSecondary>
+                <AppFakeButtonSecondary theme="dark">España > Vizcaya > Durango</AppFakeButtonSecondary>
+            </div>
         </AppSection>
     </footer>
 </template>
@@ -42,9 +55,7 @@ onMounted(() => {
     position: sticky;
     bottom: 0;
     z-index: 0;
-    transform: translateY(-2rem);
-
-    transition: transform .2s;
+    padding-block: 2rem;
 }
 
 .footer--footer-visible {
@@ -53,8 +64,11 @@ onMounted(() => {
 
 .footer .section {
     margin: 0;
+}
+
+.footer__buttons {
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
     flex-wrap: wrap;
     gap: 1rem;
 }
