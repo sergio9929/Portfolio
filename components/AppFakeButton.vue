@@ -27,8 +27,11 @@ const props = defineProps({
 
 <style scoped>
 .button {
-    background-color: var(--primary-color);
-    color: var(--base-color);
+    --color: var(--base-color);
+    --background-color: var(--primary-color-hsl);
+    
+    background-color: hsl(var(--background-color));
+    color: var(--color);
     padding: .5em 1em;
     border-radius: 1em;
     text-decoration: none;
@@ -46,13 +49,13 @@ const props = defineProps({
 }
 
 .button--dark {
-    background-color: var(--base-color);
-    color: var(--primary-color);
+    --color: var(--primary-color);
+    --background-color: var(--base-color-hsl);
 }
 
 .button--warning {
-    background-color: var(--warning-color);
-    color: var(--primary-color);
+    --color: var(--primary-color);
+    --background-color: var(--warning-color-hsl);
 }
 
 .button__icon {

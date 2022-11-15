@@ -27,22 +27,25 @@ const props = defineProps({
 
 <style scoped>
 .button {
+    --color: var(--base-color);
+    --background-color: var(--primary-color-hsl);
+
     -webkit-tap-highlight-color: transparent;
     appearance: none;
     font-size: inherit;
     font-family: inherit;
     border: none;
     cursor: pointer;
-
-    background-color: var(--primary-color);
-    color: var(--base-color);
+    
+    box-shadow: 0 0 0 1em transparent;
+    background-color: hsl(var(--background-color));
+    color: var(--color);
     padding: .5em 1em;
     border-radius: 1em;
     text-decoration: none;
     display: inline-flex;
     gap: .5em;
     align-items: center;
-    box-shadow: 0 0 0 1em transparent;
 
     transition-property: scale, box-shadow, opacity;
     transition-duration: .2s;
@@ -54,7 +57,7 @@ const props = defineProps({
 
 .button:active {
     transition-duration: .1s;
-    box-shadow: 0 0 0 2em var(--border-color);
+    box-shadow: 0 0 0 2em hsl(var(--background-color) / 10%);
     scale: 1;
 }
 
@@ -71,13 +74,13 @@ const props = defineProps({
 }
 
 .button--dark {
-    background-color: var(--base-color);
-    color: var(--primary-color);
+    --color: var(--primary-color);
+    --background-color: var(--base-color-hsl);
 }
 
 .button--warning {
-    background-color: var(--warning-color);
-    color: var(--primary-color);
+    --color: var(--primary-color);
+    --background-color: var(--warning-color-hsl);
 }
 
 .button__icon {

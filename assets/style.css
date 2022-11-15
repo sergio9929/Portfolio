@@ -6,11 +6,15 @@
 
 :root {
     --primary-color: #000;
+    --primary-color-hsl: 0 0% 0%;
     --secondary-color: #999;
+    --secondary-color-hsl: 0 0% 60%;
     --warning-color: #F5D924;
+    --warning-color-hsl: 52 91% 55%;
     --base-color: #fff;
+    --base-color-hsl: 0 0% 100%;
 
-    --border-color: hsl(0 0% 0% / 10%);
+    --border-color: hsl(var(--primary-color-hsl) / 10%);
     --border-width: 2px;
 }
 

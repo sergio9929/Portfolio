@@ -30,19 +30,19 @@ const props = defineProps({
 
 <style scoped>
 .link {
+    --color: var(--base-color);
+    --background-color: var(--primary-color-hsl);
+
     -webkit-tap-highlight-color: transparent;
-    background-color: var(--primary-color);
-    color: var(--base-color);
+    box-shadow: 0 0 0 1em transparent;
+    background-color: hsl(var(--background-color));
+    color: var(--color);
     padding: .5em 1em;
     border-radius: 1em;
     text-decoration: none;
     display: inline-flex;
     gap: .5em;
     align-items: center;
-    box-shadow: 0 0 0 1em transparent;
-    text-decoration: none;
-    font-style: normal;
-    font-weight: normal;
 
     transition-property: scale, box-shadow, opacity;
     transition-duration: .2s;
@@ -54,7 +54,7 @@ const props = defineProps({
 
 .link:active {
     transition-duration: .1s;
-    box-shadow: 0 0 0 2em var(--border-color);
+    box-shadow: 0 0 0 2em hsl(var(--background-color) / 10%);
     scale: 1;
 }
 
@@ -71,13 +71,13 @@ const props = defineProps({
 }
 
 .link--dark {
-    background-color: var(--base-color);
-    color: var(--primary-color);
+    --color: var(--primary-color);
+    --background-color: var(--base-color-hsl);
 }
 
 .link--warning {
-    background-color: var(--warning-color);
-    color: var(--primary-color);
+    --color: var(--primary-color);
+    --background-color: var(--warning-color-hsl);
 }
 
 .link__icon {

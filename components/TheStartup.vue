@@ -21,7 +21,7 @@ onMounted(() => {
 
     tl.set(startupTitle.value, {
         opacity: 1
-    }).set(startupSubtitle.value, {
+    }, '+=.5').set(startupSubtitle.value, {
         opacity: 1
     }, '<').from(startupTitle.value, {
         scale: .5,
