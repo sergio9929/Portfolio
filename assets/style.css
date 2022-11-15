@@ -1,0 +1,147 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+:root {
+    --primary-color: #000;
+    --secondary-color: #999;
+    --warning-color: #F5D924;
+    --base-color: #fff;
+
+    --border-color: hsl(0 0% 0% / 10%);
+    --border-width: 2px;
+}
+
+html {
+    font-size: 16px;
+    font-family: 'Satoshi', sans-serif;
+    background-color: var(--base-color);
+    color: var(--primary-color);
+    background-color: var(--primary-color);
+}
+
+hr {
+    border: none;
+    border-bottom: var(--border-width) solid var(--border-color);
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-bottom: .3em;
+}
+
+h2 {
+    font-size: 8rem;
+}
+
+p:not(:last-child) {
+    margin-bottom: 1em;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--base-color);
+    
+    position: relative;
+    z-index: 1;
+    padding-bottom: 6rem;
+    border-radius: 0 0 2rem 2rem;
+}
+
+.primary-text {
+    color: var(--primary-color);
+}
+
+.secondary-text {
+    color: var(--secondary-color);
+}
+
+.table {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.table__row:first-of-type {
+    box-shadow: 0 calc(-1 * var(--border-width)) 0 0 var(--border-color), 0 var(--border-width) 0 0 var(--border-color);
+}
+
+.table__row {
+    box-shadow: 0 var(--border-width) 0 0 var(--border-color);
+    width: 100%;
+}
+
+.table__left {
+    text-align: left;
+}
+
+.table__center {
+    text-align: center;
+}
+
+.table__right {
+    text-align: right;
+}
+
+.table td {
+    padding-block: 1rem;
+    vertical-align: baseline;
+}
+
+.table td:not(:last-of-type) {
+    padding-right: 1rem;
+}
+
+.table__title {
+    width: 25%;
+}
+
+.table__content {
+    width: 38%;
+    max-width: 25rem;
+    color: var(--secondary-color);
+}
+
+@media screen and (min-width: 1280px) {
+    html {
+        font-size: 1.25vw;
+    }
+}
+
+@media (max-width: 768px) {
+    .section__title {
+        font-size: 3rem;
+    }
+
+    .table__row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        padding-block: 1rem;
+    }
+
+    .table td {
+        display: inline-block;
+        padding: 0;
+    }
+
+    .table__title, .table__info, .table__content {
+        width: 100%;
+    }
+
+    .table__title {
+        font-weight: bold;
+    }
+
+    .table__info {
+        font-style: italic;
+    }
+}

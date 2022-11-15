@@ -1,0 +1,77 @@
+<script setup>
+import { onBeforeRouteLeave } from 'vue-router';
+
+
+const props = defineProps({
+    theme: {
+        type: String,
+        validator(value) {
+            return ['dark', 'warning'].includes(value)
+        }
+    },
+    to: {
+        required: true
+    },
+    icon: {}
+})
+
+onBeforeRouteLeave((to, from) => {
+    console.log(to)
+    return false
+})
+
+</script>
+
+<template>
+    <NuxtLink class="link" :class="[{'link--icon-only': !$slots.default}, (theme ? `link--${theme}` : '')]" :to="props.to" target="_blank">
+        <slot />
+        <Component :is="props.icon" class="link__icon" />
+    </NuxtLink>
+</template>
+
+<style scoped>
+.link {
+    -webkit-tap-highlight-color: transparent;
+    background-color: var(--primary-color);
+    color: var(--base-color);
+    padding: .5em 1em;
+    border-radius: 1em;
+    text-decoration: none;
+    display: inline-flex;
+    gap: .5em;
+    align-items: center;
+    box-shadow: 0 0 0 1em transparent;
+
+    transition-property: scale, box-shadow;
+    transition-duration: .2s;
+}
+
+.link:hover, .link:focus-visible {
+    scale: 1.1;
+}
+
+.link:active {
+    transition-duration: .1s;
+    box-shadow: 0 0 0 2em var(--border-color);
+    scale: 1;
+}
+
+.link--icon-only {
+    padding: .5em .6em;
+}
+
+.link--dark {
+    background-color: var(--base-color);
+    color: var(--primary-color);
+}
+
+.link--warning {
+    background-color: var(--warning-color);
+    color: var(--primary-color);
+}
+
+.link__icon {
+    display: block;
+    width: 1.5em;
+}
+</style>
