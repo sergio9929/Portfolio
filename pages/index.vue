@@ -12,10 +12,10 @@ useHead({
     title: 'Sergio Rodriguez',
 })
 
+
 const router = useRouter()
 const footerVisible = useFooterVisible()
 const container = ref(null)
-
 
 onMounted(() => {
     for (const element of [...document.querySelectorAll('.table__row'), ...document.querySelectorAll('.section__title')]) {
