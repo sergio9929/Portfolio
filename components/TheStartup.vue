@@ -19,9 +19,11 @@ onMounted(() => {
         }
     })
 
-    tl.set(startupTitle.value, {
+    tl.set(document.body, {
+        overflow: 'hidden',
+    }, '+=.5').set(startupTitle.value, {
         opacity: 1
-    }, '+=.5').set(startupSubtitle.value, {
+    }, '<').set(startupSubtitle.value, {
         opacity: 1
     }, '<').from(startupTitle.value, {
         scale: .5,
@@ -79,6 +81,8 @@ onMounted(() => {
                 display: 'none'
             })
         }
+    }, '<').set(document.body, {
+        overflow: 'auto',
     }, '<')
 })
 </script>
