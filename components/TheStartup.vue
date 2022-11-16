@@ -83,6 +83,9 @@ onMounted(() => {
         }
     }, '<').set(document.body, {
         overflow: 'auto',
+        onComplete() {
+            gsap.matchMediaRefresh()
+        }
     }, '<')
 })
 </script>
@@ -111,7 +114,7 @@ onMounted(() => {
 
 .startup__title {
     opacity: 0;
-    font-size: 10rem;
+    font-size: 8rem;
     width: 5em;
     overflow: hidden;
 }
