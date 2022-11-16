@@ -12,6 +12,12 @@ useHead({
     title: 'Sergio Rodriguez',
 })
 
+
+useAnalytics()
+
+const firebase = useFirebase()
+console.log(firebase.options.measurementId+':', '🫣')
+
 const router = useRouter()
 const footerVisible = useFooterVisible()
 const container = ref(null)

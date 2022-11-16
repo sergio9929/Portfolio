@@ -6,6 +6,7 @@ import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { Draggable } from "gsap/Draggable";
 
 const hero = ref(null)
+const heroContent = ref(null)
 const heroButtons = ref(null)
 const heroBackground = ref(null)
 const slider = ref(null)
@@ -106,7 +107,7 @@ async function loadAnimations() {
     })
 
     Draggable.create(proxy, {
-        trigger: slider.value,
+        trigger: heroContent.value,
         type: 'x',
         onDrag() {
             heroScrollTrigger.scroll(-this.x * 1.5);
@@ -237,7 +238,7 @@ function jumpOutOfSlider() {
 
 <template>
     <div class="hero" ref="hero">
-        <div class="hero__content">
+        <div class="hero__content" ref="heroContent">
             <div class="hero__background" ref="heroBackground"></div>
             <div class="slider" ref="slider">
                 <SliderElement v-for="(element, index) in sliderData" :src="element.img"
