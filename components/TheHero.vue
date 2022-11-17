@@ -72,116 +72,143 @@ async function loadAnimations() {
 
     tl = gsap.timeline();
     const mm = gsap.matchMedia();
+    mm.add({
+        isDesktop: `(min-width: 769px)`,
+        isMobile: `(max-width: 768px)`,
+        reduceMotion: "(prefers-reduced-motion: reduce)"
+    }, (context) => {
+        let { isDesktop, isMobile, reduceMotion } = context.conditions;
 
-    mm.add('(max-width: 768px)', () => {
-        sliderOptions.value = {
-            width: 6,
-            maxWidth: 17,
-            imgWidth: 14,
-            height: 12,
-            gap: 1,
-        }
-    })
-
-    // keep track of the scroll position to sync ScrollTrigger and Draggable
-    const proxy = document.createElement('div.proxy');
-    function updateProxy() {
-        if (heroScrollTrigger) {
-            gsap.set(proxy, { x: -heroScrollTrigger.scroll() / 1.5, overwrite: 'auto' });
-        }
-    }
-
-    const heroScrollTrigger = ScrollTrigger.create({
-        animation: tl,
-        trigger: hero.value,
-        pin: true,
-        pinSpacing: true,
-        scrub: .2,
-        start: 'top top',
-        snap: 'labels',
-        invalidateOnRefresh: true,
-        end: () => '+=' + slider.value.scrollWidth * 2,
-        onUpdate() {
-            updateProxy()
-        }
-    })
-
-    Draggable.create(proxy, {
-        trigger: heroContent.value,
-        type: 'x',
-        onDrag() {
-            heroScrollTrigger.scroll(-this.x * 1.5);
-        }
-    })
-
-    sliderElements.value.forEach((element, index) => {
-        const img = element.querySelector('.element__img')
-
-        if (index == 0) {
-            tl.set(element, {
-                width: sliderOptions.value.maxWidth + 'rem',
-                ease: 'power1.out',
-            }).set(slider.value, {
-                x: -1 * (sliderOptions.value.width + sliderOptions.value.gap) * index + 'rem',
-                ease: 'power1.out',
-            }, '<').set(img, {
-                opacity: 1,
-                yPercent: 0,
-                transformOrigin: 'center bottom',
-                scale: 1,
-                ease: 'power1.out',
-            }, '<').set(heroButtons.value, {
-                scale: 1,
-                ease: 'power1.out',
-            }, '<')
-        }
-
-        if (index > 0) {
-            tl.to(element, {
-                width: sliderOptions.value.maxWidth + 'rem',
-                ease: 'power1.out',
-            }).fromTo(img, {
-                yPercent: 10
-            }, {
-                opacity: 1,
-                yPercent: 0,
-                transformOrigin: 'center bottom',
-                scale: 1,
-                ease: 'power1.out',
-                onStart() {
-                    currentElement.value = index
-                },
-            }, '<').to(slider.value, {
-                x: -1 * (sliderOptions.value.width + sliderOptions.value.gap) * index + 'rem',
-                ease: 'power1.out',
-            }, '<').to(heroButtons.value, {
-                scale: 1,
-                ease: 'power1.out',
-            }, '<')
-        }
-
-        tl.addLabel('label' + index)
-
-        if (index == sliderElements.value.length - 1) {
-            tl.set(element, {}, '+=.25')
-            return
-        }
-
-        tl.to(heroButtons.value, {
-            scale: .9,
-            ease: 'power1.in',
-        }).to(element, {
-            width: sliderOptions.value.width + 'rem',
-            ease: 'power1.in',
-        }, '<').to(img, {
-            opacity: 0,
-            yPercent: 10,
-            transformOrigin: 'center bottom',
-            scale: .5,
-            ease: 'power1.in',
-        }, '<').call(() => {
-            currentElement.value = index
+        const heroScrollTrigger = ScrollTrigger.create({
+            animation: tl,
+            trigger: hero.value,
+            pin: true,
+            pinSpacing: true,
+            scrub: .2,
+            start: 'top top',
+            snap: 'labels',
+            invalidateOnRefresh: true,
+            end: () => '+=' + slider.value.scrollWidth * (isDesktop ? 2 : 3),
+            onUpdate() {
+                updateProxy()
+            }
         })
+
+        // keep track of the scroll position to sync ScrollTrigger and Draggable
+        const proxy = document.createElement('div.proxy');
+        function updateProxy() {
+            if (heroScrollTrigger) {
+                gsap.set(proxy, { x: -heroScrollTrigger.scroll() / 1.5, overwrite: 'auto' });
+            }
+        }
+
+        const heroDraggable = Draggable.create(proxy, {
+            trigger: heroContent.value,
+            type: 'x',
+            onDrag() {
+                heroScrollTrigger.scroll(-this.x * 1.5);
+            }
+        })
+
+        if (isDesktop) {
+            sliderOptions.value = {
+                width: 12,
+                maxWidth: 34,
+                imgWidth: 28,
+                height: 24,
+                gap: 1,
+            }
+
+            heroDraggable[0].enable()
+        } else {
+            sliderOptions.value = {
+                width: 6,
+                maxWidth: 13,
+                imgWidth: 14,
+                height: 12,
+                gap: 1,
+            }
+
+            heroDraggable[0].disable()
+        }
+
+        sliderElements.value.forEach((element, index) => {
+            const img = element.querySelector('.element__img')
+
+            if (index == 0) {
+                tl.set(element, {
+                    width: isDesktop ? sliderOptions.value.maxWidth + 'rem' : '',
+                    height: isMobile ? sliderOptions.value.maxWidth + 'rem' : '',
+                    ease: 'power1.out',
+                }).set(slider.value, {
+                    x: isDesktop ? (-1 * (sliderOptions.value.width + sliderOptions.value.gap) * index + 'rem') : '',
+                    y: isMobile ? (-1 * (sliderOptions.value.width + sliderOptions.value.gap) * index + 'rem') : '',
+                    ease: 'power1.out',
+                }, '<').set(img, {
+                    opacity: 1,
+                    yPercent: 0,
+                    transformOrigin: 'center bottom',
+                    scale: 1,
+                    ease: 'power1.out',
+                }, '<').set(heroButtons.value, {
+                    scale: 1,
+                    ease: 'power1.out',
+                }, '<')
+            }
+
+            if (index > 0) {
+                tl.fromTo(element, {
+                    width: isDesktop ? sliderOptions.value.width + 'rem' : '',
+                    height: isMobile ? sliderOptions.value.width + 'rem' : '',
+                }, {
+                    width: isDesktop ? sliderOptions.value.maxWidth + 'rem' : '',
+                    height: isMobile ? sliderOptions.value.maxWidth + 'rem' : '',
+                    ease: 'power1.out',
+                }).fromTo(img, {
+                    yPercent: 10
+                }, {
+                    opacity: 1,
+                    yPercent: 0,
+                    transformOrigin: 'center bottom',
+                    scale: 1,
+                    ease: 'power1.out',
+                    onStart() {
+                        currentElement.value = index
+                    },
+                }, '<').to(slider.value, {
+                    x: isDesktop ? (-1 * (sliderOptions.value.width + sliderOptions.value.gap) * index + 'rem') : '',
+                    y: isMobile ? (-1 * (sliderOptions.value.width + sliderOptions.value.gap) * index + 'rem') : '',
+                    ease: 'power1.out',
+                }, '<').to(heroButtons.value, {
+                    scale: 1,
+                    ease: 'power1.out',
+                }, '<')
+            }
+
+            tl.addLabel('label' + index)
+
+            if (index == sliderElements.value.length - 1) {
+                tl.set(element, {}, '+=.25')
+                return
+            }
+
+            tl.to(heroButtons.value, {
+                scale: .9,
+                ease: 'power1.in',
+            }).to(element, {
+                width: isDesktop ? sliderOptions.value.width + 'rem' : '',
+                height: isMobile ? sliderOptions.value.width + 'rem' : '',
+                ease: 'power1.in',
+            }, '<').to(img, {
+                opacity: 0,
+                yPercent: 10,
+                transformOrigin: 'center bottom',
+                scale: .5,
+                ease: 'power1.in',
+            }, '<').call(() => {
+                currentElement.value = index
+            })
+        });
     });
 }
 
@@ -326,6 +353,21 @@ function jumpOutOfSlider() {
 
 
 @media (max-width: 768px) {
+    .hero__content {
+        overflow: hidden;
+        align-items: flex-start;
+        justify-content: center;
+    }
+
+    .slider {
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        top: calc(50% - v-bind('(sliderOptions.maxWidth / 2) + "rem"'));
+        margin-left: 0;
+    }
+
     .hero__buttons {
         display: grid;
         grid-template-columns: max-content 1fr max-content;
