@@ -60,4 +60,10 @@ onMounted(() => {
 .footer__title {
     font-size: 3rem;
 }
+
+@media (max-width: 768px) {
+    .container--footer-visible {
+        transform: none;
+    }
+}
 </style>

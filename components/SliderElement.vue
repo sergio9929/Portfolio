@@ -42,6 +42,11 @@ const props = defineProps({
     transition: box-shadow .2s;
 }
 
+.element:hover {
+    box-shadow: 0 0 0 .5em v-bind('props.backgroundColor');
+    z-index: 1;
+}
+
 .element__img {
     width: v-bind('props.options.imgWidth + "rem"');
     height: auto;
@@ -57,18 +62,19 @@ const props = defineProps({
     transition: border-radius .2s;
 }
 
-.element:hover {
-    box-shadow: 0 0 0 .5em v-bind('props.backgroundColor');
-    z-index: 1;
-}
-
 .element:hover .element__img {
     border-radius: .5rem;
 }
 
 @media (max-width: 768px) {
     .element {
+        width: 100%;
+        height: v-bind('props.options.width + "rem"');
         border-radius: 1.2rem;
+    }
+
+    .element:hover {
+        box-shadow: none;
     }
 
     .element__img {
@@ -76,7 +82,7 @@ const props = defineProps({
     }
 
     .element:hover .element__img {
-    border-radius: .3rem;
-}
+        border-radius: .3rem;
+    }
 }
 </style>
