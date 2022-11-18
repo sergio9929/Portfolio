@@ -122,7 +122,7 @@ async function loadAnimations() {
             heroDraggable[0].enable()
         } else {
             sliderOptions.value = {
-                width: 6,
+                width: 7,
                 maxWidth: 13,
                 imgWidth: 14,
                 height: 12,
@@ -214,6 +214,9 @@ async function loadAnimations() {
 
 function jumpToElement(index) {
     if (index == currentElement.value) {
+        if (!sliderData.value[currentElement.value].externalLink) return
+
+        const otherElements = Array.from(sliderElements.value).filter((el, i) => i != index)
         gsap.timeline({
             defaults: {
                 duration: .5,
@@ -221,9 +224,9 @@ function jumpToElement(index) {
         }).to(sliderElements.value[index], {
             scale: 1.1,
             duration: .2,
-        }).fromTo(heroBackground.value, {
-            backgroundColor: 'transparent',
-            scale: .5,
+        }, '<').fromTo(heroBackground.value, {
+            backgroundColor: sliderData.value[index].backgroundColor,
+            scale: .2,
             opacity: 0
         }, {
             backgroundColor: sliderData.value[index].backgroundColor,
@@ -237,15 +240,16 @@ function jumpToElement(index) {
             duration: .3,
             ease: 'back',
         }, '+=.1').to(heroBackground.value, {
-            scale: 2,
-            onStart() {
-            }
+            scale: 4,
         }, '<').add(() => {
             window.open(sliderData.value[currentElement.value].externalLink, '_blank').focus();
         }, '-=.35').to(heroBackground.value, {
             backgroundColor: 'transparent',
-        })
-        if (!sliderData.value[currentElement.value].externalLink) return
+        }).to(otherElements, {
+            opacity: 1,
+        }, '<').to(otherElements, {
+            opacity: 0,
+        }, '0')
     }
 
     gsap.to(window, {
@@ -310,8 +314,10 @@ function jumpOutOfSlider() {
 
 .hero__background {
     position: absolute;
-    inset: 2rem 10% 0;
-    /* opacity: .2; */
+    inset: 0;
+    width: v-bind('sliderOptions.maxWidth + "rem"');
+    height: v-bind('sliderOptions.maxWidth + "rem"');
+    margin: auto;
     border-radius: 100vmax;
 }
 
@@ -320,9 +326,9 @@ function jumpOutOfSlider() {
     padding: 2rem;
     padding-bottom: 0;
     display: flex;
-    /* justify-content: center; */
     align-items: center;
     position: relative;
+    z-index: 1;
 }
 
 .slider {
