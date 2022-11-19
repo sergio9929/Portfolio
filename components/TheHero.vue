@@ -245,6 +245,7 @@ function jumpToElement(index) {
             window.open(sliderData.value[currentElement.value].externalLink, '_blank').focus();
         }, '-=.35').to(heroBackground.value, {
             backgroundColor: 'transparent',
+            scale: .2,
         }).to(otherElements, {
             opacity: 1,
         }, '<').to(otherElements, {
