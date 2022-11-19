@@ -5,7 +5,7 @@
             <tbody>
                 <tr class="table__row">
                     <td class="table__left">
-                        <AppTextSecondary>&lt;</AppTextSecondary>html <AppTextSecondary>\></AppTextSecondary> <AppStar /><AppStar /><AppStar />
+                        <AppTextSecondary>&lt;</AppTextSecondary>html <AppTextSecondary>/></AppTextSecondary> <AppStar /><AppStar /><AppStar />
                     </td>
                     <td class="table__center">
                         <AppTextSecondary>.</AppTextSecondary>css <AppStar /><AppStar /><AppStar />
