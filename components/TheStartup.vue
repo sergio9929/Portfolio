@@ -35,32 +35,34 @@ onMounted(() => {
         duration: 1,
         ease: 'power4',
     }, '<').fromTo('.startup__typing1', {
-        text: "",
+        text: " ",
     }, {
         text: "Desarrollador",
-        boxShadow: 'var(--border-width) 0 0 0 var(--primary-color)',
+        boxShadow: 'var(--border-width) 0 0 0 var(--caret-color)',
         duration: "Desarrollador".length * .1,
         ease: "power1.in"
     }, '>').set('.startup__typing1', {
         boxShadow: 'none',
     }).fromTo('.startup__typing2', {
-        text: "",
+        text: " ",
     }, {
         text: "web",
-        boxShadow: 'var(--border-width) 0 0 0 var(--primary-color)',
+        boxShadow: 'var(--border-width) 0 0 0 var(--caret-color)',
         duration: "web".length * .1,
         ease: "power1.in"
     }).set('.startup__typing2', {
         boxShadow: 'none',
     }, '+=.5').set('.startup__typing1', {
-        boxShadow: 'var(--border-width) 0 0 0 var(--primary-color)',
+        boxShadow: 'var(--border-width) 0 0 0 var(--caret-color)',
     }).to('.startup__typing1', {
-        backgroundColor: '#000',
-        color: '#fff',
-    }, '+=.5').fromTo('.startup__typing1', {
-        text: "",
+        backgroundColor: 'var(--selection-color)',
+    }, '+=.5').set('.startup__typing1', {
+        boxShadow: 'calc(-1 * var(--border-width)) 0 0 0 var(--caret-color)',
+    }, '<').fromTo('.startup__typing1', {
+        text: " ",
         backgroundColor: 'transparent',
         color: 'inherit',
+        boxShadow: 'var(--border-width) 0 0 0 var(--caret-color)',
     }, {
         text: "Diseñador y desarrollador",
         duration: "Diseñador y desarrollador".length * .1,
@@ -86,15 +88,20 @@ onMounted(() => {
         onComplete() {
             gsap.matchMediaRefresh()
         }
-    }, '<')
+    })
 })
 </script>
 
 <template>
     <div class="startup" ref="startup">
-        <h1 class="startup__title" ref="startupTitle">Sergio Rodriguez</h1>
-        <h2 class="startup__subtitle" ref="startupSubtitle">&nbsp;<span class="startup__typing1">Diseñador y
-                desarrollador</span> <span class="startup__typing2">web</span></h2>
+        <div class="startup__content">
+            <h1 class="startup__title" ref="startupTitle">Sergio Rodriguez</h1>
+            <h2 class="startup__subtitle" ref="startupSubtitle">&nbsp;<span class="startup__typing1">Diseñador y
+                    desarrollador</span> <span class="startup__typing2">web</span></h2>
+        </div>
+        <div class="startup__loader">
+            <AppLoader />
+        </div>
     </div>
 </template>
 
@@ -102,14 +109,31 @@ onMounted(() => {
 .startup {
     position: fixed;
     inset: 0;
-    background-color: var(--base-color);
     z-index: 10;
+    background-color: var(--base-color);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    text-align: center;
+}
+
+.startup__content {
+    height: 100%;
+    padding: 2rem;
+    padding-bottom: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    text-align: center;
-    overflow: hidden;
+    position: relative;
+}
+
+.startup__loader {
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
 }
 
 .startup__title {
@@ -132,7 +156,6 @@ onMounted(() => {
     opacity: 0;
     font-size: 1.5rem;
     font-weight: normal;
-    margin-bottom: 2em;
 }
 
 @media (max-width: 768px) {

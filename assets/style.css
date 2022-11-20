@@ -13,6 +13,9 @@
     --warning-color-hsl: 52 91% 55%;
     --base-color: #fff;
     --base-color-hsl: 0 0% 100%;
+    --caret-color: #48A6EE;
+    --caret-color-hsl: 206 83% 61%;
+    --selection-color: hsl(var(--caret-color-hsl) / 10%);
 
     --border-color: hsl(var(--primary-color-hsl) / 10%);
     --border-width: 2px;
