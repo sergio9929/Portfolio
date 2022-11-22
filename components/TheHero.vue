@@ -293,8 +293,8 @@ function jumpOutOfSlider() {
                 <AppFakeButton v-else theme="warning">No publicada</AppFakeButton>
                 <AppLinkSecondary :to="sliderData[currentElement].img" :icon="PhotoIcon">
                     Ver</AppLinkSecondary>
-                <AppButtonSecondary v-if="currentElement == sliderData.length - 1" :icon="ArrowDownIcon"
-                    @click="jumpOutOfSlider" class="button--habilities">Habilidades</AppButtonSecondary>
+                <AppButton v-if="currentElement == sliderData.length - 1" :icon="ArrowDownIcon"
+                    @click="jumpOutOfSlider" class="button--habilities">Habilidades</AppButton>
             </div>
 
             <AppButtonSecondary :style="{ visibility: currentElement < sliderData.length - 1 ? 'visible' : 'hidden' }"
