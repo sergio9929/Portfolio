@@ -1,10 +1,12 @@
 <script setup>
+import { ArrowDownIcon } from '@heroicons/vue/24/outline'
 import { gsap } from "gsap";
 import { TextPlugin } from "gsap/TextPlugin";
 
 const startup = ref(null)
 const startupTitle = ref(null)
 const startupSubtitle = ref(null)
+const isLoaded = ref(false)
 
 onMounted(() => {
     const titleWords = startupTitle.value.textContent.split(' ')
@@ -69,27 +71,31 @@ onMounted(() => {
         ease: "power1.inOut"
     }, '+=.2').set('.startup__typing1', {
         boxShadow: 'none',
-    }).to(startupSubtitle.value, {
-        y: startupTitle.value.scrollHeight,
-        duration: 1,
-    }, '+=1').to(startupTitle.value, {
-        yPercent: 100,
-        duration: 1,
-    }, '<').to(startup.value, {
-        yPercent: -100,
-        duration: 1,
-        onComplete() {
-            gsap.set(startup.value, {
-                display: 'none'
-            })
-        }
-    }, '<').set(document.body, {
+    }).set(document.body, {
         overflow: 'auto',
         onComplete() {
+            isLoaded.value = true
             gsap.matchMediaRefresh()
+            jumpOutOfStartup()
         }
     })
 })
+
+function jumpOutOfStartup() {
+    gsap.to(window, {
+        duration: 1,
+        ease: 'power4.out',
+        scrollTo: window.innerHeight / 2
+    });
+}
+
+function jumpToSlider() {
+    gsap.to(window, {
+        duration: 1,
+        ease: 'power4.out',
+        scrollTo: window.innerHeight
+    });
+}
 </script>
 
 <template>
@@ -100,16 +106,21 @@ onMounted(() => {
                     desarrollador</span> <span class="startup__typing2">web</span></h2>
         </div>
         <div class="startup__loader">
-            <AppLoader />
+            <Transition name="slide-up">
+                <AppFakeButtonSecondary v-if="!isLoaded" style="box-shadow: none;">
+                    <AppLoader />
+                </AppFakeButtonSecondary>
+                <AppButton v-else :icon="ArrowDownIcon" @click="jumpToSlider" />
+            </Transition>
+
         </div>
     </div>
 </template>
 
 <style>
 .startup {
-    position: fixed;
-    inset: 0;
-    z-index: 10;
+    width: 100%;
+    height: 100vh;
     background-color: var(--base-color);
     display: flex;
     flex-direction: column;
@@ -156,6 +167,31 @@ onMounted(() => {
     opacity: 0;
     font-size: 1.5rem;
     font-weight: normal;
+}
+
+.slide-up-enter-active,
+.slide-up-leave-active {
+    position: relative;
+    transition-property: opacity, scale, rotate !important;
+    transition: .2s !important;
+    z-index: 1;
+}
+
+.slide-up-leave-active {
+    position: absolute;
+    z-index: 0;
+}
+
+.slide-up-enter-from {
+    opacity: 0;
+    scale: .5;
+    rotate: -90deg;
+}
+
+.slide-up-leave-to {
+    opacity: 0;
+    scale: .5;
+    rotate: 90deg;
 }
 
 @media (max-width: 768px) {
