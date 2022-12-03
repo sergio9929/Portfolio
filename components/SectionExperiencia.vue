@@ -3,7 +3,7 @@
 </script>
     
 <template>
-    <AppSection>
+    <AppSection class="experiencia">
         <h2 class="section__title">Experiencia</h2>
         <table class="table">
             <tbody>

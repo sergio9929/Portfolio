@@ -76,18 +76,17 @@ onMounted(() => {
         onComplete() {
             isLoaded.value = true
             gsap.matchMediaRefresh()
-            jumpOutOfStartup()
+            jumpToSlider()
         }
+    }).fromTo('.header', {
+        yPercent: -100,
+        opacity: 0,
+    }, {
+        yPercent: 0,
+        opacity: 1,
+        duration: 1,
     })
 })
-
-function jumpOutOfStartup() {
-    gsap.to(window, {
-        duration: 1,
-        ease: 'power4.out',
-        scrollTo: window.innerHeight / 2
-    });
-}
 
 function jumpToSlider() {
     gsap.to(window, {
