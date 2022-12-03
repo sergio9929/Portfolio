@@ -1,14 +1,57 @@
+<script setup>
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+const currentNavItem = ref(0)
+
+onMounted(() => {
+    [document.querySelector('.hero'), document.querySelector('.habilidades'), document.querySelector('.experiencia')].forEach((section, i) => {
+        ScrollTrigger.create({
+            trigger: section,
+            start: 'top center',
+            end: 'center top',
+            onEnter() {
+                currentNavItem.value = i
+            },
+            onLeaveBack() {
+                currentNavItem.value = i - 1
+            },
+        })
+    });
+})
+
+function goToSection(selector, offset = 0) {
+    gsap.to(window, {
+        duration: 1,
+        ease: 'power4.out',
+        scrollTo: document.querySelector(selector).offsetTop - offset
+    });
+}
+
+function goToFooter() {
+    gsap.to(window, {
+        duration: 2,
+        ease: 'power4.out',
+        scrollTo: document.body.scrollHeight
+    });
+}
+</script>
+
 <template>
     <header class="header">
         <nav class="nav">
             <ul class="nav__list">
-                <li class="nav__item">
-                    <NuxtLink to="/">Home</NuxtLink>
+                <li class="nav__item" :class="{'nav__item--active': currentNavItem == 0}">
+                    <NuxtLink to="/" @click="goToSection('.pin-spacer')">Proyectos</NuxtLink>
                 </li>
-                <li class="nav__item">
-                    <NuxtLink to="/doc">Docs</NuxtLink>
+                <li class="nav__item" :class="{'nav__item--active': currentNavItem == 1}">
+                    <NuxtLink to="/" @click="goToSection('.habilidades', 100)">Habilidades</NuxtLink>
+                </li>
+                <li class="nav__item" :class="{'nav__item--active': currentNavItem == 2}">
+                    <NuxtLink to="/" @click="goToSection('.experiencia', 100)">Experiencia</NuxtLink>
                 </li>
             </ul>
+            <AppLinkSecondary to="/" theme="dark" target="" @click="goToFooter">Contáctame</AppLinkSecondary>
         </nav>
     </header>
 </template>
@@ -16,37 +59,50 @@
 <style>
 .header {
     position: fixed;
-    bottom: 0;
+    top: 0;
     right: 0;
-    padding: 2rem;
+    left: 0;
+    padding: 1rem 2rem;
     z-index: 999;
+    color: #fff;
+    mix-blend-mode: difference;
+    opacity: 0;
 }
 
 .nav {
-    background-color: var(--primary-color);
-    color: var(--base-color);
-    padding: .5em 1em;
     border-radius: 1em;
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
 }
 
 .nav__list {
     list-style: none;
     display: flex;
+    align-items: center;
     flex-wrap: wrap;
-    gap: .5em;
+    gap: 1rem 2rem;
 }
 
 .nav__item a {
     text-decoration: none;
+    opacity: .5;
+    transition: opacity .2s;
 }
 
 .nav__item a:where(:hover, :focus) {
+    opacity: 1;
+}
+
+.nav__item--active a {
+    opacity: 1;
     text-decoration: underline;
+    font-weight: bold;
 }
 
-.nav__item:not(:first-of-type)::before {
-    content: '|';
-    margin-right: .5em;
+@media (max-width: 768px) {
+    .header {
+        display: none;
+    }
 }
-
 </style>

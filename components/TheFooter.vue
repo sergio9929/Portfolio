@@ -33,7 +33,7 @@ onMounted(() => {
             </div>
         </AppSection>
         
-        <AppSection>
+        <AppSection class="contacto">
             <h2 class="footer__title">Contacto</h2>
             <div class="footer__buttons">
                 <AppLinkSecondary theme="dark" to="mailto:sergio9929@hotmail.com">sergio9929@hotmail.com

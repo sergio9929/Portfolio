@@ -1,5 +1,5 @@
 <template>
-    <AppSection>
+    <AppSection class="habilidades">
         <h2 class="section__title">Habilidades</h2>
         <table class="table">
             <tbody>
