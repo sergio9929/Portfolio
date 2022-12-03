@@ -20,19 +20,21 @@ onMounted(() => {
     });
 })
 
-function goToSection(selector, offset = 0) {
+function goToSection(selector, margin = 0) {
+    const offsetTop = document.querySelector(selector).offsetTop
     gsap.to(window, {
-        duration: 1,
+        duration: 1 + (Math.abs(offsetTop - window.scrollY) / window.innerHeight / 2),
         ease: 'power4.out',
-        scrollTo: document.querySelector(selector).offsetTop - offset
+        scrollTo: offsetTop - margin
     });
 }
 
 function goToFooter() {
+    const offsetTop = document.body.scrollHeight
     gsap.to(window, {
-        duration: 2,
+        duration: 1 + (Math.abs(offsetTop - window.scrollY) / window.innerHeight / 2),
         ease: 'power4.out',
-        scrollTo: document.body.scrollHeight
+        scrollTo: offsetTop
     });
 }
 </script>
