@@ -8,22 +8,21 @@ import { Draggable } from "gsap/Draggable";
 const hero = ref(null)
 const heroContent = ref(null)
 const heroButtons = ref(null)
-const heroBackground = ref(null)
 const slider = ref(null)
 const sliderElements = computed(() => slider.value?.querySelectorAll('.element') || [])
 let tl = null
+let tlFinal = null
 
-const currentElement = ref(0)
+const currentElement = useCurrentElement()
+const headerTheme = useHeaderTheme()
 const sliderOptions = ref({
-    width: 12,
-    maxWidth: 34,
-    imgWidth: 28,
-    height: 24,
+    width: 40,
     gap: 1,
 })
 const sliderData = ref([{
     img: 'Imagen 1.png',
-    backgroundColor: '#F7F9FB',
+    backgroundColor: '#434343',
+    theme: 'dark',
     borderColor: '',
     link: '',
     externalLink: 'https://www.mnker.com/',
@@ -31,6 +30,7 @@ const sliderData = ref([{
 }, {
     img: 'Imagen 2.png',
     backgroundColor: '#F8E6CF',
+    theme: '',
     borderColor: '',
     link: '',
     externalLink: 'https://vivebenalmadena.com/',
@@ -38,6 +38,7 @@ const sliderData = ref([{
 }, {
     img: 'Imagen 3.png',
     backgroundColor: '#9CC9F2',
+    theme: '',
     borderColor: '#fff',
     link: '',
     externalLink: 'https://valpatek.com/',
@@ -45,18 +46,21 @@ const sliderData = ref([{
 }, {
     img: 'Imagen 4.png',
     backgroundColor: '#4B7BB2',
+    theme: 'dark',
     borderColor: '#fff',
     link: '',
     externalLink: '',
     title: '',
 }, {
     img: 'Imagen 5.png',
-    backgroundColor: '#0f0f0f',
+    backgroundColor: '#434343',
+    theme: 'dark',
     borderColor: '#fff',
     link: '',
     externalLink: '',
     title: '',
 }])
+headerTheme.value = computed(() => sliderData.value[currentElement.value].theme)
 
 watch(sliderElements, () => {
     if (sliderElements.value.length == sliderData.value.length) {
@@ -70,7 +74,33 @@ async function loadAnimations() {
 
     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, Draggable);
 
-    tl = gsap.timeline();
+    ScrollTrigger.create({
+        start: 0,
+        end: "max",
+        onUpdate: updateHeaderTheme
+    });
+
+    function updateHeaderTheme() {
+        if (ScrollTrigger.isInViewport(document.querySelector('.startup'))) {
+            headerTheme.value = computed(() => '')
+            return
+        }
+        if (ScrollTrigger.isInViewport(hero.value)) {
+            headerTheme.value = computed(() => sliderData.value[currentElement.value].theme)
+            return
+        }
+
+        headerTheme.value = computed(() => '')
+    }
+
+    tl = gsap.timeline({
+        paused: true,
+        defaults: {
+            duration: 5,
+            ease: 'none',
+        }
+    });
+    tlFinal = gsap.timeline();
     const mm = gsap.matchMedia();
     mm.add({
         isDesktop: `(min-width: 769px)`,
@@ -80,18 +110,18 @@ async function loadAnimations() {
         let { isDesktop, isMobile, reduceMotion } = context.conditions;
 
         const heroScrollTrigger = ScrollTrigger.create({
-            animation: tl,
+            animation: tlFinal,
             trigger: hero.value,
             pin: true,
             pinSpacing: true,
-            scrub: .2,
+            scrub: 1,
             start: 'top top',
             snap: 'labels',
             invalidateOnRefresh: true,
-            end: () => '+=' + slider.value.scrollWidth * (isDesktop ? 2 : 3),
+            end: () => '+=' + (sliderElements.value.length * 100) * (isDesktop ? 2 : 1),
             onUpdate() {
                 updateProxy()
-            }
+            },
         })
 
         // keep track of the scroll position to sync ScrollTrigger and Draggable
@@ -112,103 +142,86 @@ async function loadAnimations() {
 
         if (isDesktop) {
             sliderOptions.value = {
-                width: 12,
-                maxWidth: 34,
-                imgWidth: 28,
-                height: 24,
+                width: 40,
                 gap: 1,
             }
 
             heroDraggable[0].enable()
         } else {
             sliderOptions.value = {
-                width: 7,
-                maxWidth: 13,
-                imgWidth: 14,
-                height: 12,
+                width: 20,
                 gap: 1,
             }
 
             heroDraggable[0].disable()
         }
 
-        sliderElements.value.forEach((element, index) => {
-            const img = element.querySelector('.element__img')
+        sliderElements.value.forEach((element, i) => {
+            const background = element.querySelector('.element__background')
+            const fade = element.querySelector('.element__fade')
 
-            if (index == 0) {
-                tl.set(element, {
-                    width: isDesktop ? sliderOptions.value.maxWidth + 'rem' : '',
-                    height: isMobile ? sliderOptions.value.maxWidth + 'rem' : '',
-                    ease: 'power1.out',
-                }).set(slider.value, {
-                    x: isDesktop ? (-1 * (sliderOptions.value.width + sliderOptions.value.gap) * index + 'rem') : '',
-                    y: isMobile ? (-1 * (sliderOptions.value.width + sliderOptions.value.gap) * index + 'rem') : '',
-                    ease: 'power1.out',
-                }, '<').set(img, {
-                    opacity: 1,
-                    yPercent: 0,
-                    transformOrigin: 'center bottom',
-                    scale: 1,
-                    ease: 'power1.out',
-                }, '<').set(heroButtons.value, {
-                    scale: 1,
-                    ease: 'power1.out',
-                }, '<')
-            }
-
-            if (index > 0) {
-                tl.fromTo(element, {
-                    width: isDesktop ? sliderOptions.value.width + 'rem' : '',
-                    height: isMobile ? sliderOptions.value.width + 'rem' : '',
-                }, {
-                    width: isDesktop ? sliderOptions.value.maxWidth + 'rem' : '',
-                    height: isMobile ? sliderOptions.value.maxWidth + 'rem' : '',
-                    ease: 'power1.out',
-                }).fromTo(img, {
-                    yPercent: 10
-                }, {
-                    opacity: 1,
-                    yPercent: 0,
-                    transformOrigin: 'center bottom',
-                    scale: 1,
-                    ease: 'power1.out',
-                    onStart() {
-                        currentElement.value = index
-                    },
-                }, '<').to(slider.value, {
-                    x: isDesktop ? (-1 * (sliderOptions.value.width + sliderOptions.value.gap) * index + 'rem') : '',
-                    y: isMobile ? (-1 * (sliderOptions.value.width + sliderOptions.value.gap) * index + 'rem') : '',
-                    ease: 'power1.out',
-                }, '<').to(heroButtons.value, {
-                    scale: 1,
-                    ease: 'power1.out',
-                }, '<')
-            }
-
-            tl.addLabel('label' + index)
-
-            if (index == sliderElements.value.length - 1) {
-                tl.set(element, {}, '+=.25')
-                return
-            }
-
-            tl.to(heroButtons.value, {
-                scale: .9,
-                ease: 'power1.in',
-            }).to(element, {
-                width: isDesktop ? sliderOptions.value.width + 'rem' : '',
-                height: isMobile ? sliderOptions.value.width + 'rem' : '',
-                ease: 'power1.in',
-            }, '<').to(img, {
-                opacity: 0,
-                yPercent: 10,
-                transformOrigin: 'center bottom',
+            tl.fromTo(element, {
+                zIndex: - 2 - i,
+                xPercent: isDesktop ? 50 : 0,
+                yPercent: isDesktop ? 0 : 70,
                 scale: .5,
+            }, {
+                zIndex: 0,
+                xPercent: 0,
+                yPercent: 0,
+                scale: 1,
                 ease: 'power1.in',
-            }, '<').call(() => {
-                currentElement.value = index
-            })
+            }, i)
+                .addLabel('label-' + i, '>')
+                .to(element, {
+                    xPercent: isDesktop ? -50 : 0,
+                    yPercent: isDesktop ? 0 : -70,
+                    scale: .5,
+                    ease: 'power1.out'
+                }, '>')
+
+            tl.call(() => {
+                currentElement.value = i
+            }, null, i + 4.5)
+                .call(() => {
+                    currentElement.value = i
+                }, null, i + 5.5)
+
+            tl.fromTo(background, {
+                opacity: .6,
+            }, {
+                opacity: 0,
+                yoyo: true,
+                repeat: 1,
+                duration: 3,
+            }, i + 2)
+
+            tl.fromTo(fade, {
+                opacity: 1,
+            }, {
+                opacity: 0,
+                yoyo: true,
+                repeat: 1,
+            }, i)
         });
+
+        tlFinal.add(tl.tweenFromTo('label-0', 'label-0'), '-=1')
+            .add(tl.tweenFromTo('label-0', 'label-' + (sliderElements.value.length - 1)))
+            .add(tl.tweenFromTo('label-' + (sliderElements.value.length - 1), 'label-' + (sliderElements.value.length - 1)), '+=1')
+            .fromTo(heroButtons.value, {
+                opacity: 1,
+                yPercent: 0,
+            }, {
+                yPercent: 100,
+                opacity: 0,
+                yoyo: true,
+                repeat: (sliderElements.value.length * 2) - 3,
+                duration: .5,
+            }, 1)
+
+        for (let i = 0; i < sliderElements.value.length; i++) {
+            tlFinal.addLabel('label-' + i, i + 1)
+        }
     });
 }
 
@@ -221,42 +234,39 @@ function jumpToElement(index) {
             defaults: {
                 duration: .5,
             }
-        }).to(sliderElements.value[index], {
-            scale: 1.1,
-            duration: .2,
-        }, '<').fromTo(heroBackground.value, {
-            backgroundColor: sliderData.value[index].backgroundColor,
-            scale: .2,
-            opacity: 0
-        }, {
-            backgroundColor: sliderData.value[index].backgroundColor,
-            scale: 1,
-            opacity: 1,
-        }).to(sliderElements.value[index], {
-            scale: .5,
-            ease: 'power4.out',
-        }, '<').to(sliderElements.value[index], {
-            scale: 1,
-            duration: .3,
-            ease: 'back',
-        }, '+=.1').to(heroBackground.value, {
-            scale: 4,
-        }, '<').add(() => {
-            window.open(sliderData.value[currentElement.value].externalLink, '_blank').focus();
-        }, '-=.35').to(heroBackground.value, {
-            backgroundColor: 'transparent',
-            scale: .2,
-        }).to(otherElements, {
-            opacity: 1,
-        }, '<').to(otherElements, {
-            opacity: 0,
-        }, '0')
-    }
+        })
+            .to(sliderElements.value[index], {
+                scale: 1.1,
+                duration: .2,
+            }, '<')
+            .to(sliderElements.value[index], {
+                scale: .5,
+                ease: 'power4.out',
+            }, '<')
+            .to(sliderElements.value[index], {
+                scale: 1,
+                duration: .3,
+                ease: 'back',
+            }, '+=.1')
+            .add(() => {
+                window.open(sliderData.value[currentElement.value].externalLink, '_blank').focus();
+            }, '-=.1')
+            .to(otherElements, {
+                opacity: 1,
+            }, '<')
+            .to(otherElements, {
+                opacity: 0,
+            }, '0')
+    } else {
+        const scrollTarget = tlFinal.scrollTrigger.labelToScroll('label-' + index),
+            scrollDifference = Math.abs(window.scrollY - scrollTarget),
+            scrollTotal = tlFinal.scrollTrigger.end
 
-    gsap.to(window, {
-        scrollTo: tl.scrollTrigger.labelToScroll('label' + index),
-        duration: 1,
-    });
+        gsap.to(window, {
+            scrollTo: scrollTarget,
+            duration: scrollDifference / scrollTotal * 1,
+        });
+    }
 }
 
 function jumpOutOfSlider() {
@@ -271,7 +281,6 @@ function jumpOutOfSlider() {
 <template>
     <div class="hero" ref="hero">
         <div class="hero__content" ref="heroContent">
-            <div class="hero__background" ref="heroBackground"></div>
             <div class="slider" ref="slider">
                 <SliderElement v-for="(element, index) in sliderData" :src="element.img"
                     :backgroundColor="element.backgroundColor" :borderColor="element.borderColor" :key="index"
@@ -280,26 +289,29 @@ function jumpOutOfSlider() {
                     :options="sliderOptions" />
             </div>
         </div>
-        <div class="hero__buttons" ref="heroButtons">
+        <div class="hero__buttons">
             <AppButtonSecondary :style="{ visibility: currentElement != 0 ? 'visible' : 'hidden' }"
                 class="button--hero-left" :icon="ArrowLeftIcon" @click="jumpToElement(currentElement - 1)"
-                visibility="low" />
+                visibility="low" :theme="sliderData[currentElement].theme" />
 
-            <div class="hero__button-group ">
-                <AppLink v-if="sliderData[currentElement].link" :to="sliderData[currentElement].link">Ver más</AppLink>
+            <div class="hero__button-group" ref="heroButtons">
+                <AppLink v-if="sliderData[currentElement].link" :to="sliderData[currentElement].link"
+                    :theme="sliderData[currentElement].theme">Ver más</AppLink>
                 <AppLink v-if="sliderData[currentElement].externalLink" :to="sliderData[currentElement].externalLink"
-                    :icon="ArrowTopRightOnSquareIcon" @click.prevent='jumpToElement(currentElement)'>
+                    :theme="sliderData[currentElement].theme" :icon="ArrowTopRightOnSquareIcon"
+                    @click.prevent='jumpToElement(currentElement)'>
                     Visitar {{ sliderData[currentElement].title }}</AppLink>
                 <AppFakeButton v-else theme="warning">No publicada</AppFakeButton>
-                <AppLinkSecondary :to="sliderData[currentElement].img" :icon="PhotoIcon">
+                <AppLinkSecondary :to="sliderData[currentElement].img" :icon="PhotoIcon"
+                    :theme="sliderData[currentElement].theme">
                     Ver</AppLinkSecondary>
-                <AppButton v-if="currentElement == sliderData.length - 1" :icon="ArrowDownIcon"
-                    @click="jumpOutOfSlider" class="button--habilities">Habilidades</AppButton>
+                <AppButton v-if="currentElement == sliderData.length - 1" :icon="ArrowDownIcon" @click="jumpOutOfSlider"
+                    class="button--habilities" :theme="sliderData[currentElement].theme">Habilidades</AppButton>
             </div>
 
             <AppButtonSecondary :style="{ visibility: currentElement < sliderData.length - 1 ? 'visible' : 'hidden' }"
                 class="button--hero-right" :icon="ArrowRightIcon" @click="jumpToElement(currentElement + 1)"
-                visibility="low" />
+                visibility="low" :theme="sliderData[currentElement].theme" />
         </div>
     </div>
 </template>
@@ -311,36 +323,37 @@ function jumpOutOfSlider() {
     display: flex;
     flex-direction: column;
     overflow: hidden;
-}
-
-.hero__background {
-    position: absolute;
-    inset: 0;
-    width: v-bind('sliderOptions.maxWidth + "rem"');
-    height: v-bind('sliderOptions.maxWidth + "rem"');
-    margin: auto;
-    border-radius: 100vmax;
+    background-color: v-bind('sliderData[currentElement].backgroundColor');
+    transition: background-color 1s;
 }
 
 .hero__content {
     height: 100%;
     padding: 2rem;
+    padding-top: 5rem;
     padding-bottom: 0;
     display: flex;
+    justify-content: center;
     align-items: center;
     position: relative;
     z-index: 1;
 }
 
 .slider {
-    display: flex;
-    flex-wrap: nowrap;
+    width: v-bind('sliderOptions.width + "rem"');
+    height: auto;
+    aspect-ratio: 15 / 11;
     gap: v-bind('sliderOptions.gap + "rem"');
-    margin-left: calc(50% - v-bind('(sliderOptions.maxWidth / 2) + "rem"'));
+}
+
+.element__fade {
+    transition: background-color 1s;
+    background-color: v-bind('sliderData[currentElement].backgroundColor');
 }
 
 .--unpublished {
-    pointer-events: none;
+    cursor: auto;
+    box-shadow: none !important;
 }
 
 .hero__buttons {
@@ -371,7 +384,7 @@ function jumpOutOfSlider() {
         flex-direction: column;
         align-items: center;
         position: relative;
-        top: calc(50% - v-bind('(sliderOptions.maxWidth / 2) + "rem"'));
+        top: calc(50% - v-bind('(sliderOptions.width / 2) + "rem"'));
         margin-left: 0;
     }
 

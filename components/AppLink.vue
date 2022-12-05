@@ -4,7 +4,7 @@ const props = defineProps({
     theme: {
         type: String,
         validator(value) {
-            return ['dark', 'warning'].includes(value)
+            return ['', 'light', 'dark', 'warning'].includes(value)
         }
     },
     to: {
@@ -44,8 +44,7 @@ const props = defineProps({
     gap: .5em;
     align-items: center;
 
-    transition-property: scale, box-shadow, opacity;
-    transition-duration: .2s;
+    transition: scale .2s, opacity .2s, box-shadow .5s, color .5s;
 }
 
 .link:hover, .link:focus-visible {
@@ -59,7 +58,7 @@ const props = defineProps({
 }
 
 .link--low {
-    opacity: .1;
+    opacity: .3;
 }
 
 .link--low:hover, .link--low:focus-visible {

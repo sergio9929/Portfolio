@@ -37,10 +37,12 @@ const props = defineProps({
     display: inline-flex;
     gap: .5em;
     align-items: center;
+
+    transition: scale .2s, opacity .2s, box-shadow .5s, color .5s;
 }
 
 .button--low {
-    opacity: .1;
+    opacity: .3;
 }
 
 .button--icon-only {

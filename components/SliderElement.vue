@@ -12,7 +12,7 @@ const props = defineProps({
     options: {
         type: Object,
         validator(obj) {
-            return obj.width && obj.imgWidth && obj.height
+            return obj.width
         },
         required: true
     }
@@ -22,6 +22,8 @@ const props = defineProps({
 
 <template>
     <div class="element" :style="{ backgroundColor: props.backgroundColor }">
+        <div class="element__fade"></div>
+        <div class="element__background"></div>
         <img :src="props.src" alt="" class="element__img" :style="{ borderColor: props.borderColor }">
     </div>
 </template>
@@ -29,8 +31,9 @@ const props = defineProps({
 <style>
 .element {
     width: v-bind('props.options.width + "rem"');
-    height: v-bind('props.options.height + "rem"');
-    position: relative;
+    height: auto;
+    aspect-ratio: 15 / 11;
+    position: absolute;
     border-radius: 2rem;
     display: flex;
     justify-content: center;
@@ -44,32 +47,32 @@ const props = defineProps({
 
 .element:hover {
     box-shadow: 0 0 0 .5em v-bind('props.backgroundColor');
+}
+
+.element__background {
+    position: absolute;
+    inset: 0;
+    opacity: .6;
+    background-color: v-bind('props.backgroundColor');
+}
+
+.element__fade {
+    position: absolute;
+    inset: 0;
     z-index: 1;
 }
 
 .element__img {
-    width: v-bind('props.options.imgWidth + "rem"');
+    width: 100%;
     height: auto;
     display: block;
     border-radius: .5rem .5rem 0 0;
     pointer-events: none;
-    scale: .5;
-    opacity: 0;
-    transform-origin: bottom;
-    border: 1px solid transparent;
-    border-bottom-width: 0;
-
-    transition: border-radius .2s;
-}
-
-.element:hover .element__img {
-    border-radius: .5rem;
 }
 
 @media (max-width: 768px) {
     .element {
         width: 100%;
-        height: v-bind('props.options.width + "rem"');
         border-radius: 1.2rem;
     }
 
@@ -79,10 +82,6 @@ const props = defineProps({
 
     .element__img {
         border-radius: .3rem .3rem 0 0;
-    }
-
-    .element:hover .element__img {
-        border-radius: .3rem;
     }
 }
 </style>

@@ -3,6 +3,9 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const currentNavItem = ref(0)
+const startupFinished = useStartupFinished()
+const footerVisible = useFooterVisible()
+const headerTheme = useHeaderTheme()
 
 onMounted(() => {
     [document.querySelector('.hero'), document.querySelector('.habilidades'), document.querySelector('.experiencia')].forEach((section, i) => {
@@ -40,20 +43,21 @@ function goToFooter() {
 </script>
 
 <template>
-    <header class="header">
+    <header class="header" :class="{ 'header--footer-visible': footerVisible, 'header--startup-finished': startupFinished }">
         <nav class="nav">
-            <ul class="nav__list">
-                <li class="nav__item" :class="{'nav__item--active': currentNavItem == 0}">
+            <ul class="nav__list" :class="[headerTheme ? `nav__list--${headerTheme}` : '']">
+                <li class="nav__item"
+                    :class="{ 'nav__item--active': currentNavItem == 0 }">
                     <NuxtLink to="/" @click="goToSection('.pin-spacer')">Proyectos</NuxtLink>
                 </li>
-                <li class="nav__item" :class="{'nav__item--active': currentNavItem == 1}">
+                <li class="nav__item" :class="{ 'nav__item--active': currentNavItem == 1 }">
                     <NuxtLink to="/" @click="goToSection('.habilidades', 100)">Habilidades</NuxtLink>
                 </li>
-                <li class="nav__item" :class="{'nav__item--active': currentNavItem == 2}">
+                <li class="nav__item" :class="{ 'nav__item--active': currentNavItem == 2 }">
                     <NuxtLink to="/" @click="goToSection('.experiencia', 100)">Experiencia</NuxtLink>
                 </li>
             </ul>
-            <AppLinkSecondary to="/" theme="dark" target="" @click="goToFooter">Contáctame</AppLinkSecondary>
+            <AppLinkSecondary to="/" :theme="headerTheme" target="" @click="goToFooter">Contáctame</AppLinkSecondary>
         </nav>
     </header>
 </template>
@@ -66,8 +70,16 @@ function goToFooter() {
     left: 0;
     padding: 1rem 2rem;
     z-index: 999;
-    color: #fff;
-    mix-blend-mode: difference;
+    opacity: 0;
+}
+
+.header--startup-finished {
+    transition-property: transform, opacity;
+    transition-duration: .5s;
+    opacity: 1;
+}
+.header--footer-visible {
+    transform: translateY(-100%);
     opacity: 0;
 }
 
@@ -86,10 +98,14 @@ function goToFooter() {
     gap: 1rem 2rem;
 }
 
+.nav__list--dark {
+    color: var(--base-color);
+}
+
 .nav__item a {
     text-decoration: none;
     opacity: .5;
-    transition: opacity .2s;
+    transition: opacity .2s, color .5s;
 }
 
 .nav__item a:where(:hover, :focus) {
