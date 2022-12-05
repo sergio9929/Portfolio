@@ -117,7 +117,6 @@ function jumpToSlider() {
                 </AppFakeButtonSecondary>
                 <AppButton v-else :icon="ArrowDownIcon" @click="jumpToSlider" />
             </Transition>
-
         </div>
     </div>
 </template>
