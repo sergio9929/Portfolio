@@ -4,7 +4,7 @@ const props = defineProps({
     theme: {
         type: String,
         validator(value) {
-            return ['dark', 'warning'].includes(value)
+            return ['', 'light', 'dark', 'warning'].includes(value)
         }
     },
     icon: {},
@@ -46,8 +46,7 @@ const props = defineProps({
     gap: .5em;
     align-items: center;
 
-    transition-property: scale, box-shadow, opacity;
-    transition-duration: .2s;
+    transition: scale .2s, opacity .2s, box-shadow .5s, color .5s;
 }
 
 .button:hover, .button:focus-visible {
@@ -61,7 +60,7 @@ const props = defineProps({
 }
 
 .button--low {
-    opacity: .1;
+    opacity: .3;
 }
 
 .button--low:hover, .button--low:focus-visible {

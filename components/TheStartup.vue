@@ -3,12 +3,14 @@ import { ArrowDownIcon } from '@heroicons/vue/24/outline'
 import { gsap } from "gsap";
 import { TextPlugin } from "gsap/TextPlugin";
 
+const startupFinished = useStartupFinished()
 const startup = ref(null)
 const startupTitle = ref(null)
 const startupSubtitle = ref(null)
 const isLoaded = ref(false)
 
 onMounted(() => {
+    const header = document.querySelector('.header')
     const titleWords = startupTitle.value.textContent.split(' ')
     startupTitle.value.innerHTML = titleWords.map(word => `<span class="startup__title-outer"><span class="startup__title-inner">${word}</span></span>`).join(' ')
 
@@ -78,13 +80,17 @@ onMounted(() => {
             gsap.matchMediaRefresh()
             jumpToSlider()
         }
-    }).fromTo('.header', {
+    }).fromTo(header, {
         yPercent: -100,
         opacity: 0,
     }, {
         yPercent: 0,
         opacity: 1,
         duration: 1,
+        onComplete() {
+            gsap.to(header, { clearProps: 'all' });
+            startupFinished.value = true
+        }
     })
 })
 
