@@ -118,7 +118,7 @@ async function loadAnimations() {
             start: 'top top',
             snap: 'labels',
             invalidateOnRefresh: true,
-            end: () => '+=' + (sliderElements.value.length * 100) * (isDesktop ? 2 : 1),
+            end: () => '+=' + (sliderElements.value.length * 100) * (isDesktop ? 3 : 1),
             onUpdate() {
                 updateProxy()
             },
