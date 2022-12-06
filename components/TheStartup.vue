@@ -7,7 +7,6 @@ const startupFinished = useStartupFinished()
 const startup = ref(null)
 const startupTitle = ref(null)
 const startupSubtitle = ref(null)
-const isLoaded = ref(false)
 
 onMounted(() => {
     const header = document.querySelector('.header')
@@ -76,20 +75,9 @@ onMounted(() => {
     }).set(document.body, {
         overflow: 'auto',
         onComplete() {
-            isLoaded.value = true
+            startupFinished.value = true
             gsap.matchMediaRefresh()
             jumpToSlider()
-        }
-    }).fromTo(header, {
-        yPercent: -100,
-        opacity: 0,
-    }, {
-        yPercent: 0,
-        opacity: 1,
-        duration: 1,
-        onComplete() {
-            gsap.to(header, { clearProps: 'all' });
-            startupFinished.value = true
         }
     })
 })
@@ -112,7 +100,7 @@ function jumpToSlider() {
         </div>
         <div class="startup__loader">
             <Transition name="slide-up">
-                <AppFakeButtonSecondary v-if="!isLoaded" style="box-shadow: none;">
+                <AppFakeButtonSecondary v-if="!startupFinished" style="box-shadow: none;">
                     <AppLoader />
                 </AppFakeButtonSecondary>
                 <AppButton v-else :icon="ArrowDownIcon" @click="jumpToSlider" />

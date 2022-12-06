@@ -114,9 +114,14 @@ async function loadAnimations() {
             trigger: hero.value,
             pin: true,
             pinSpacing: true,
-            scrub: 1,
+            scrub: .5,
+            ease: 'power4.inOut',
             start: 'top top',
-            snap: 'labels',
+            snap: {
+                snapTo: 'labels',
+                delay: 0,
+                duration: .5,
+            },
             invalidateOnRefresh: true,
             end: () => '+=' + (sliderElements.value.length * 100) * (isDesktop ? 3 : 1),
             onUpdate() {
@@ -205,9 +210,10 @@ async function loadAnimations() {
             }, i)
         });
 
-        tlFinal.add(tl.tweenFromTo('label-0', 'label-0'), '-=1')
+        const pinSnappingFactor = .2
+        tlFinal.add(tl.tweenFromTo('label-0', 'label-0'), '-=' + pinSnappingFactor)
             .add(tl.tweenFromTo('label-0', 'label-' + (sliderElements.value.length - 1)))
-            .add(tl.tweenFromTo('label-' + (sliderElements.value.length - 1), 'label-' + (sliderElements.value.length - 1)), '+=1')
+            .add(tl.tweenFromTo('label-' + (sliderElements.value.length - 1), 'label-' + (sliderElements.value.length - 1)), '+=' + pinSnappingFactor)
             .fromTo(heroButtons.value, {
                 opacity: 1,
                 yPercent: 0,
@@ -217,10 +223,10 @@ async function loadAnimations() {
                 yoyo: true,
                 repeat: (sliderElements.value.length * 2) - 3,
                 duration: .5,
-            }, 1)
+            }, pinSnappingFactor)
 
         for (let i = 0; i < sliderElements.value.length; i++) {
-            tlFinal.addLabel('label-' + i, i + 1)
+            tlFinal.addLabel('label-' + i, i + pinSnappingFactor)
         }
     });
 }
