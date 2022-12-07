@@ -9,7 +9,6 @@ const startupTitle = ref(null)
 const startupSubtitle = ref(null)
 
 onMounted(() => {
-    const header = document.querySelector('.header')
     const titleWords = startupTitle.value.textContent.split(' ')
     startupTitle.value.innerHTML = titleWords.map(word => `<span class="startup__title-outer"><span class="startup__title-inner">${word}</span></span>`).join(' ')
 
@@ -24,6 +23,12 @@ onMounted(() => {
 
     tl.set(document.body, {
         overflow: 'hidden',
+        onComplete() {
+            gsap.to(window, {
+                duration: 0,
+                scrollTo: 0,
+            });
+        }
     }, '+=.5').set(startupTitle.value, {
         opacity: 1
     }, '<').set(startupSubtitle.value, {
@@ -86,7 +91,7 @@ function jumpToSlider() {
     gsap.to(window, {
         duration: 1,
         ease: 'power4.out',
-        scrollTo: window.innerHeight
+        scrollTo: '.hero',
     });
 }
 </script>
@@ -103,7 +108,7 @@ function jumpToSlider() {
                 <AppFakeButtonSecondary v-if="!startupFinished" style="box-shadow: none;">
                     <AppLoader />
                 </AppFakeButtonSecondary>
-                <AppButton v-else :icon="ArrowDownIcon" @click="jumpToSlider" />
+                <AppButton v-else :icon="ArrowDownIcon" @click="jumpToSlider" aria-label="Ir a proyectos" />
             </Transition>
         </div>
     </div>

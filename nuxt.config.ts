@@ -1,6 +1,16 @@
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
     ssr: true,
+    modules: [
+        '@nuxt/image-edge',
+    ],
+    image: {
+        screens: {
+            mobile: 768,
+            laptop: 1280,
+            desktop: 1920,
+        },
+    },
     meta: {
         titleTemplate: 'Sergio Rodriguez | Portfolio',
         link: [
@@ -12,6 +22,7 @@ export default defineNuxtConfig({
         ],
         htmlAttrs: { lang: 'es' },
         meta: [
+            { name: 'description', content: 'Soy un apasionado diseñador y desarrollador de aplicaciones y páginas web.' },
             { name: 'msapplication-TileColor', content: '#DEDDD9' },
             { name: 'theme-color', content: '#ffffff' },
         ]
@@ -30,5 +41,21 @@ export default defineNuxtConfig({
             FIREBASE_MEASUREMENT_ID: process.env.FIREBASE_MEASUREMENT_ID,
             isDev: process.env.NODE_ENV !== 'production',
         }
-    }
+    },
+    build: {
+        transpile: ['@heroicons/vue'],
+        html: {
+            minify: {
+                collapseBooleanAttributes: true,
+                decodeEntities: true,
+                minifyCSS: true,
+                minifyJS: true,
+                processConditionalComments: true,
+                removeEmptyAttributes: true,
+                removeRedundantAttributes: true,
+                trimCustomFragments: true,
+                useShortDoctype: true
+            },
+        }
+    },
 })

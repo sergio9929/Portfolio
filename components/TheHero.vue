@@ -74,25 +74,6 @@ async function loadAnimations() {
 
     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, Draggable);
 
-    ScrollTrigger.create({
-        start: 0,
-        end: "max",
-        onUpdate: updateHeaderTheme
-    });
-
-    function updateHeaderTheme() {
-        if (ScrollTrigger.isInViewport(document.querySelector('.startup'))) {
-            headerTheme.value = computed(() => '')
-            return
-        }
-        if (ScrollTrigger.isInViewport(hero.value)) {
-            headerTheme.value = computed(() => sliderData.value[currentElement.value].theme)
-            return
-        }
-
-        headerTheme.value = computed(() => '')
-    }
-
     tl = gsap.timeline({
         paused: true,
         defaults: {
@@ -124,13 +105,32 @@ async function loadAnimations() {
             },
             invalidateOnRefresh: true,
             end: () => '+=' + (sliderElements.value.length * 100) * (isDesktop ? 3 : 1),
-            onUpdate() {
-                updateProxy()
-            },
         })
 
         // keep track of the scroll position to sync ScrollTrigger and Draggable
         const proxy = document.createElement('div.proxy');
+        scrollUpdate()
+
+        ScrollTrigger.create({
+            start: 0,
+            end: "max",
+            onUpdate: scrollUpdate,
+        });
+
+        function scrollUpdate() {
+            updateProxy()
+            if (ScrollTrigger.isInViewport(document.querySelector('.startup'))) {
+                headerTheme.value = computed(() => '')
+                return
+            }
+            if (ScrollTrigger.isInViewport(hero.value)) {
+                headerTheme.value = computed(() => sliderData.value[currentElement.value].theme)
+                return
+            }
+
+            headerTheme.value = computed(() => '')
+        }
+
         function updateProxy() {
             if (heroScrollTrigger) {
                 gsap.set(proxy, { x: -heroScrollTrigger.scroll() / 1.5, overwrite: 'auto' });
@@ -298,7 +298,7 @@ function jumpOutOfSlider() {
         <div class="hero__buttons">
             <AppButtonSecondary :style="{ visibility: currentElement != 0 ? 'visible' : 'hidden' }"
                 class="button--hero-left" :icon="ArrowLeftIcon" @click="jumpToElement(currentElement - 1)"
-                visibility="low" :theme="sliderData[currentElement].theme" />
+                visibility="low" :theme="sliderData[currentElement].theme" aria-label="Proyecto anterior" />
 
             <div class="hero__button-group" ref="heroButtons">
                 <AppLink v-if="sliderData[currentElement].link" :to="sliderData[currentElement].link"
@@ -317,7 +317,7 @@ function jumpOutOfSlider() {
 
             <AppButtonSecondary :style="{ visibility: currentElement < sliderData.length - 1 ? 'visible' : 'hidden' }"
                 class="button--hero-right" :icon="ArrowRightIcon" @click="jumpToElement(currentElement + 1)"
-                visibility="low" :theme="sliderData[currentElement].theme" />
+                visibility="low" :theme="sliderData[currentElement].theme" aria-label="Siguiente proyectos" />
         </div>
     </div>
 </template>
