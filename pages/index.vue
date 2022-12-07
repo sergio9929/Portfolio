@@ -19,7 +19,6 @@ const footerVisible = useFooterVisible()
 const container = ref(null)
 
 onMounted(() => {
-    window.scrollTo({ top: 0, behavior: "auto" })
     for (const element of [...document.querySelectorAll('.table__row'), ...document.querySelectorAll('.section__title')]) {
         gsap.from(element, {
             opacity: 0,
