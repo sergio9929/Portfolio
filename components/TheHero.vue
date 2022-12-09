@@ -102,6 +102,7 @@ async function loadAnimations() {
                 snapTo: 'labels',
                 delay: 0,
                 duration: .5,
+                inertia: false,
             },
             invalidateOnRefresh: true,
             end: () => '+=' + (sliderElements.value.length * 100) * (isDesktop ? 3 : 1),
