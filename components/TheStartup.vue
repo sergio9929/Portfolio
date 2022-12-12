@@ -20,6 +20,7 @@ onMounted(() => {
     const tl = gsap.timeline({
         defaults: {
             ease: 'power4.out',
+            duration: 1,
         }
     })
 
@@ -35,13 +36,15 @@ onMounted(() => {
         opacity: 1
     }, '<').set(startupSubtitle.value, {
         opacity: 1
+    }, '<').from(startupTitle.value, {
+        scale: .5,
+        duration: 1.5,
     }, '<').fromTo('.startup__title-inner', {
         opacity: 0,
         yPercent: 100,
     }, {
         opacity: 1,
         yPercent: 0,
-        duration: 1,
         stagger: .2,
         ease: 'power3',
     }, '<').fromTo('.startup__subtitle-inner', {
@@ -50,7 +53,6 @@ onMounted(() => {
     }, {
         opacity: 1,
         yPercent: 0,
-        duration: 1,
         stagger: .2,
         ease: 'power3',
     }).set(document.body, {
