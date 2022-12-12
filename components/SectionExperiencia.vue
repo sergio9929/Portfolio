@@ -9,7 +9,7 @@
             <tbody>
                 <tr class="table__row">
                     <td class="table__title">DocPath</td>
-                    <td class="table__info">Enero 2021 - Actualmente (1 año y 9 meses)</td>
+                    <td class="table__info">Enero 2021 - Octubre 2022 (1 año y 9 meses)</td>
                     <td class="table__content">
                         <p>Diseño y maquetación de contenidos: presentaciones, documentos, folletos, carteles, ...</p>
                         <p>Diseño, desarrollo y mantenimiento de páginas web:<br />- Wordpress + DIVI<br />- Tema
