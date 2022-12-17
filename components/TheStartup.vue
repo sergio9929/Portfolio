@@ -85,7 +85,7 @@ function jumpToSlider() {
                 <AppFakeButtonSecondary v-if="!startupFinished" style="box-shadow: none;">
                     <AppLoader />
                 </AppFakeButtonSecondary>
-                <AppButton v-else :icon="ArrowDownIcon" @click="jumpToSlider" aria-label="Ir a proyectos" />
+                <AppButton v-else :icon="ArrowDownIcon" @click="jumpToSlider">Ver proyectos</AppButton>
             </Transition>
         </div>
     </div>
@@ -159,14 +159,12 @@ function jumpToSlider() {
 
 .slide-up-enter-from {
     opacity: 0;
-    scale: .5;
-    rotate: -90deg;
+    transform: translateY(100%);
 }
 
 .slide-up-leave-to {
     opacity: 0;
-    scale: .5;
-    rotate: 90deg;
+    scale: 0;
 }
 
 @media (max-width: 768px) {
