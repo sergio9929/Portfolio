@@ -36,7 +36,7 @@ const webp = encodeURIComponent(props.src.replace(/\.[^/.]+$/, ".webp"))
 .element {
     width: v-bind('props.options.width + "rem"');
     height: auto;
-    aspect-ratio: 15 / 11;
+    /* aspect-ratio: 15 / 11; */
     position: absolute;
     border-radius: 2rem;
     display: flex;
@@ -70,7 +70,7 @@ const webp = encodeURIComponent(props.src.replace(/\.[^/.]+$/, ".webp"))
     width: 100%;
     height: auto;
     display: block;
-    border-radius: .5rem .5rem 0 0;
+    border-radius: .5rem;
     pointer-events: none;
 }
 
@@ -85,7 +85,7 @@ const webp = encodeURIComponent(props.src.replace(/\.[^/.]+$/, ".webp"))
     }
 
     .element__img {
-        border-radius: .3rem .3rem 0 0;
+        border-radius: .3rem;
     }
 }
 </style>
