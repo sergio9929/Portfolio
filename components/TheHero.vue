@@ -37,7 +37,7 @@ const sliderData = ref([{
     title: 'Vive Benalmadena',
 }, {
     img: 'Imagen 3.png',
-    backgroundColor: '#9CC9F2',
+    backgroundColor: '#b6d1e7',
     theme: '',
     borderColor: '#fff',
     link: '',
@@ -45,7 +45,7 @@ const sliderData = ref([{
     title: 'Valpatek',
 }, {
     img: 'Imagen 4.png',
-    backgroundColor: '#4B7BB2',
+    backgroundColor: '#305888',
     theme: 'dark',
     borderColor: '#fff',
     link: '',
@@ -53,7 +53,7 @@ const sliderData = ref([{
     title: '',
 }, {
     img: 'Imagen 5.png',
-    backgroundColor: '#434343',
+    backgroundColor: '#282828',
     theme: 'dark',
     borderColor: '#fff',
     link: '',
@@ -351,6 +351,8 @@ function jumpOutOfSlider() {
     height: auto;
     aspect-ratio: 15 / 11;
     gap: v-bind('sliderOptions.gap + "rem"');
+    display: flex;
+    align-items: center;
 }
 
 .element__fade {
