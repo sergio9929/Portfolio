@@ -44,6 +44,14 @@ const sliderData = ref([{
     externalLink: 'https://valpatek.com/',
     title: 'Valpatek',
 }, {
+    img: 'Imagen 6.png',
+    backgroundColor: '#ddddef',
+    theme: '',
+    borderColor: '#fff',
+    link: '',
+    externalLink: '',
+    title: '',
+}, {
     img: 'Imagen 4.png',
     backgroundColor: '#305888',
     theme: 'dark',
