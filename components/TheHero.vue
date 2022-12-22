@@ -10,6 +10,7 @@ const heroContent = ref(null)
 const heroButtons = ref(null)
 const slider = ref(null)
 const sliderElements = computed(() => slider.value?.querySelectorAll('.element') || [])
+
 let tl = null
 let tlFinal = null
 
