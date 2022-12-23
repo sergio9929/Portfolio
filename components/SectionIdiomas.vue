@@ -10,7 +10,6 @@
                 <tr class="table__row">
                     <td class="table__title">Español</td>
                     <td class="table__info">Nativo</td>
-                    <td class="table__content"></td>
                 </tr>
                 <tr class="table__row">
                     <td class="table__title">Inglés</td>
