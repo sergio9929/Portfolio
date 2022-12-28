@@ -6,6 +6,7 @@ import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { Draggable } from "gsap/Draggable";
 
 const hero = ref(null)
+const heroContainer = ref(null)
 const heroContent = ref(null)
 const heroButtons = ref(null)
 const slider = ref(null)
@@ -16,6 +17,7 @@ let tlFinal = null
 
 const currentElement = useCurrentElement()
 const headerTheme = useHeaderTheme()
+const heroInViewport = ref(false)
 const sliderOptions = ref({
     width: 40,
     gap: 1,
@@ -129,12 +131,14 @@ async function loadAnimations() {
 
         function scrollUpdate() {
             updateProxy()
+            heroInViewport.value = false
             if (ScrollTrigger.isInViewport(document.querySelector('.startup'))) {
                 headerTheme.value = computed(() => '')
                 return
             }
             if (ScrollTrigger.isInViewport(hero.value)) {
                 headerTheme.value = computed(() => sliderData.value[currentElement.value].theme)
+                heroInViewport.value = true
                 return
             }
 
@@ -220,10 +224,10 @@ async function loadAnimations() {
             }, i)
         });
 
-        const pinSnappingFactor = .2
+        const pinSnappingFactor = .5
         tlFinal.add(tl.tweenFromTo('label-0', 'label-0'), '-=' + pinSnappingFactor)
             .add(tl.tweenFromTo('label-0', 'label-' + (sliderElements.value.length - 1)))
-            .add(tl.tweenFromTo('label-' + (sliderElements.value.length - 1), 'label-' + (sliderElements.value.length - 1)), '+=' + pinSnappingFactor)
+            .add(tl.tweenFromTo('label-' + (sliderElements.value.length - 1), 'label-' + (sliderElements.value.length - 1)))
             .fromTo(heroButtons.value, {
                 opacity: 1,
                 yPercent: 0,
@@ -234,6 +238,19 @@ async function loadAnimations() {
                 repeat: (sliderElements.value.length * 2) - 3,
                 duration: .5,
             }, pinSnappingFactor)
+            .to(heroContainer.value, {
+                borderRadius: '3rem',
+                scale: .95,
+                duration: pinSnappingFactor,
+            }, '>')
+            .fromTo(heroContainer.value, {
+                borderRadius: '3rem',
+                scale: .95,
+            }, {
+                borderRadius: 0,
+                scale: 1,
+                duration: pinSnappingFactor,
+            }, 0)
 
         for (let i = 0; i < sliderElements.value.length; i++) {
             tlFinal.addLabel('label-' + i, i + pinSnappingFactor)
@@ -285,49 +302,65 @@ function jumpToElement(index) {
     }
 }
 
+function jumpToHero() {
+    if (!heroInViewport.value) {
+        const scrollTarget = tlFinal.scrollTrigger.labelToScroll('label-0')
+        gsap.to(window, {
+            duration: 1,
+            ease: 'power2.inOut',
+            scrollTo: scrollTarget,
+        });
+    }
+
+}
+
 function jumpOutOfSlider() {
     gsap.to(window, {
         duration: 1,
         ease: 'power4.out',
-        scrollTo: document.querySelector('.section__title').offsetTop - 200
+        scrollTo: document.querySelector('.section').offsetTop
     });
 }
 </script>
 
 <template>
     <div class="hero" ref="hero">
-        <div class="hero__content" ref="heroContent">
-            <div class="slider" ref="slider">
-                <SliderElement v-for="(element, index) in sliderData" :src="element.img"
-                    :backgroundColor="element.backgroundColor" :borderColor="element.borderColor" :key="index"
-                    @click="jumpToElement(index)"
-                    :class="{ '--unpublished': (index == currentElement) && !element.externalLink }"
-                    :options="sliderOptions" />
+        <div class="hero__container" ref="heroContainer" @click="jumpToHero">
+            <div class="hero__content" ref="heroContent">
+                <div class="slider" ref="slider">
+                    <SliderElement v-for="(element, index) in sliderData" :src="element.img"
+                        :backgroundColor="element.backgroundColor" :borderColor="element.borderColor" :key="index"
+                        @click="jumpToElement(index)"
+                        :class="{ '--unpublished': (index == currentElement) && !element.externalLink }"
+                        :options="sliderOptions" />
+                </div>
             </div>
-        </div>
-        <div class="hero__buttons">
-            <AppButtonSecondary :style="{ visibility: currentElement != 0 ? 'visible' : 'hidden' }"
-                class="button--hero-left" :icon="ArrowLeftIcon" @click="jumpToElement(currentElement - 1)"
-                visibility="low" :theme="sliderData[currentElement].theme" aria-label="Proyecto anterior" />
+            <div class="hero__buttons">
+                <AppButtonSecondary :style="{ visibility: currentElement != 0 ? 'visible' : 'hidden' }"
+                    class="button--hero-left" :icon="ArrowLeftIcon" @click="jumpToElement(currentElement - 1)"
+                    visibility="low" :theme="sliderData[currentElement].theme" aria-label="Proyecto anterior" />
 
-            <div class="hero__button-group" ref="heroButtons">
-                <AppLink v-if="sliderData[currentElement].link" :to="sliderData[currentElement].link"
-                    :theme="sliderData[currentElement].theme">Ver más</AppLink>
-                <AppLink v-if="sliderData[currentElement].externalLink" :to="sliderData[currentElement].externalLink"
-                    :theme="sliderData[currentElement].theme" :icon="ArrowTopRightOnSquareIcon"
-                    @click.prevent='jumpToElement(currentElement)'>
-                    Visitar {{ sliderData[currentElement].title }}</AppLink>
-                <AppFakeButton v-else theme="warning">No publicada</AppFakeButton>
-                <AppLinkSecondary :to="sliderData[currentElement].img" :icon="PhotoIcon"
-                    :theme="sliderData[currentElement].theme">
-                    Ver</AppLinkSecondary>
-                <AppButton v-if="currentElement == sliderData.length - 1" :icon="ArrowDownIcon" @click="jumpOutOfSlider"
-                    class="button--habilities" :theme="sliderData[currentElement].theme">Habilidades</AppButton>
+                <div class="hero__button-group" ref="heroButtons">
+                    <AppLink v-if="sliderData[currentElement].link" :to="sliderData[currentElement].link"
+                        :theme="sliderData[currentElement].theme">Ver más</AppLink>
+                    <AppLink v-if="sliderData[currentElement].externalLink"
+                        :to="sliderData[currentElement].externalLink" :theme="sliderData[currentElement].theme"
+                        :icon="ArrowTopRightOnSquareIcon" @click.prevent='jumpToElement(currentElement)'>
+                        Visitar {{ sliderData[currentElement].title }}</AppLink>
+                    <AppFakeButton v-else theme="warning">No publicada</AppFakeButton>
+                    <AppLinkSecondary :to="sliderData[currentElement].img" :icon="PhotoIcon"
+                        :theme="sliderData[currentElement].theme">
+                        Ver</AppLinkSecondary>
+                    <AppButton v-if="currentElement == sliderData.length - 1" :icon="ArrowDownIcon"
+                        @click="jumpOutOfSlider" class="button--habilities" :theme="sliderData[currentElement].theme">
+                        Habilidades</AppButton>
+                </div>
+
+                <AppButtonSecondary
+                    :style="{ visibility: currentElement < sliderData.length - 1 ? 'visible' : 'hidden' }"
+                    class="button--hero-right" :icon="ArrowRightIcon" @click="jumpToElement(currentElement + 1)"
+                    visibility="low" :theme="sliderData[currentElement].theme" aria-label="Siguiente proyectos" />
             </div>
-
-            <AppButtonSecondary :style="{ visibility: currentElement < sliderData.length - 1 ? 'visible' : 'hidden' }"
-                class="button--hero-right" :icon="ArrowRightIcon" @click="jumpToElement(currentElement + 1)"
-                visibility="low" :theme="sliderData[currentElement].theme" aria-label="Siguiente proyectos" />
         </div>
     </div>
 </template>
@@ -336,11 +369,18 @@ function jumpOutOfSlider() {
 .hero {
     width: 100%;
     height: 100vh;
+}
+
+.hero__container {
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     overflow: hidden;
     background-color: v-bind('sliderData[currentElement].backgroundColor');
     transition: background-color 1s;
+    border-radius: 2rem;
+    scale: .95;
 }
 
 .hero__content {
