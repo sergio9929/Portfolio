@@ -64,12 +64,14 @@ onMounted(() => {
             yPercent: 0,
             stagger: .2,
             ease: 'power3',
+            onComplete() {
+                startupFinished.value = true
+            }
         }, '-=.5').to(startup.value, {
             height: isDesktop ? '90vh' : '60vh',
         }, '-=.5').set(document.body, {
             overflow: 'auto',
             onComplete() {
-                startupFinished.value = true
                 ScrollTrigger.refresh()
             }
         })
@@ -151,29 +153,6 @@ onMounted(() => {
     justify-content: space-between;
     gap: .5em;
     flex-wrap: wrap;
-}
-
-.slide-up-enter-active,
-.slide-up-leave-active {
-    position: relative;
-    transition-property: opacity, scale, rotate !important;
-    transition: .2s !important;
-    z-index: 1;
-}
-
-.slide-up-leave-active {
-    position: absolute;
-    z-index: 0;
-}
-
-.slide-up-enter-from {
-    opacity: 0;
-    transform: translateY(100%);
-}
-
-.slide-up-leave-to {
-    opacity: 0;
-    scale: 0;
 }
 
 @media screen and (max-width: 1280px) {
