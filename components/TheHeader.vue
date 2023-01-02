@@ -5,7 +5,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 const startupFinished = useStartupFinished()
 const footerVisible = useFooterVisible()
 const headerTheme = useHeaderTheme()
-const currentNavItem = ref(0)
+const currentNavItem = ref(-1)
 const header = ref(null)
 const animationFinished = ref(false)
 
@@ -50,16 +50,16 @@ function goToFooter() {
             <nav class="nav">
                 <ul class="nav__list" :class="[headerTheme ? `nav__list--${headerTheme}` : '']">
                     <li class="nav__item" :class="{ 'nav__item--active': currentNavItem == 0 }">
-                        <NuxtLink to="/" @click="goToSection('.pin-spacer')">Proyectos</NuxtLink>
+                        <NuxtLink to="javascript:void(0)" @click="goToSection('.pin-spacer', -50)">Proyectos</NuxtLink>
                     </li>
                     <li class="nav__item" :class="{ 'nav__item--active': currentNavItem == 1 }">
-                        <NuxtLink to="/" @click="goToSection('.habilidades', 100)">Habilidades</NuxtLink>
+                        <NuxtLink to="javascript:void(0)" @click="goToSection('.habilidades', 100)">Habilidades</NuxtLink>
                     </li>
                     <li class="nav__item" :class="{ 'nav__item--active': currentNavItem == 2 }">
-                        <NuxtLink to="/" @click="goToSection('.experiencia', 100)">Experiencia</NuxtLink>
+                        <NuxtLink to="javascript:void(0)" @click="goToSection('.experiencia', 100)">Experiencia</NuxtLink>
                     </li>
                 </ul>
-                <AppLinkSecondary to="/" :theme="headerTheme" target="" @click="goToFooter">Contáctame
+                <AppLinkSecondary to="javascript:void(0)" :theme="headerTheme" target="" @click="goToFooter">Contáctame
                 </AppLinkSecondary>
             </nav>
         </header>
