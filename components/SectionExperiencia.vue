@@ -1,12 +1,19 @@
-<script setup>
-
-</script>
-    
 <template>
     <AppSection class="experiencia">
         <h2 class="section__title">Experiencia</h2>
         <table class="table">
             <tbody>
+                <tr class="table__row">
+                    <td class="table__title">The Last Dock</td>
+                    <td class="table__info">Enero 2023 - Actualmente</td>
+                    <td class="table__content">
+                        <p>Diseño y desarrollo de páginas web en WordPress usando plantillas personalizadas (PHP, HTML, CSS,
+                            JS) o Elementor, según se requiera.</p>
+                        <p>Desarrollo de plugins y soluciones para WordPress.</p>
+                        <p>Diseño y desarrollo de pequeñas aplicaciones web para cubrir todas las necesidades de los
+                            clientes (Nuxt 3, Vue 3, Firebase).</p>
+                    </td>
+                </tr>
                 <tr class="table__row">
                     <td class="table__title">DocPath</td>
                     <td class="table__info">Enero 2021 - Octubre 2022 (1 año y 9 meses)</td>
