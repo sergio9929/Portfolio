@@ -1,5 +1,4 @@
 <script setup>
-import { ArrowRightIcon, ArrowLeftIcon, ArrowDownIcon, ArrowTopRightOnSquareIcon, PhotoIcon } from '@heroicons/vue/24/outline'
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
@@ -23,7 +22,7 @@ const sliderOptions = ref({
     gap: 1,
 })
 const sliderData = ref([{
-    img: 'Imagen 1.png',
+    img: '/Imagen 1.png',
     backgroundColor: '#434343',
     theme: 'dark',
     borderColor: '',
@@ -31,7 +30,7 @@ const sliderData = ref([{
     externalLink: 'https://www.mnker.com/',
     title: 'Mnker',
 }, {
-    img: 'Imagen 2.png',
+    img: '/Imagen 2.png',
     backgroundColor: '#F8E6CF',
     theme: '',
     borderColor: '',
@@ -39,7 +38,7 @@ const sliderData = ref([{
     externalLink: 'https://vivebenalmadena.com/',
     title: 'Vive Benalmadena',
 }, {
-    img: 'Imagen 3.png',
+    img: '/Imagen 3.png',
     backgroundColor: '#b6d1e7',
     theme: '',
     borderColor: '#fff',
@@ -47,7 +46,7 @@ const sliderData = ref([{
     externalLink: 'https://valpatek.com/',
     title: 'Valpatek',
 }, {
-    img: 'Imagen 6.png',
+    img: '/Imagen 6.png',
     backgroundColor: '#ddddef',
     theme: '',
     borderColor: '#fff',
@@ -55,7 +54,7 @@ const sliderData = ref([{
     externalLink: '',
     title: '',
 }, {
-    img: 'Imagen 4.png',
+    img: '/Imagen 4.png',
     backgroundColor: '#305888',
     theme: 'dark',
     borderColor: '#fff',
@@ -63,7 +62,7 @@ const sliderData = ref([{
     externalLink: '',
     title: '',
 }, {
-    img: 'Imagen 5.png',
+    img: '/Imagen 5.png',
     backgroundColor: '#282828',
     theme: 'dark',
     borderColor: '#fff',
@@ -101,6 +100,21 @@ async function loadAnimations() {
     }, (context) => {
         let { isDesktop, isMobile, reduceMotion } = context.conditions;
 
+        gsap.fromTo('.jump-to-hero', {
+            y: 0,
+        }, {
+            opacity: 0,
+            y: -100,
+            scrollTrigger: {
+                trigger: '.jump-to-hero',
+                scrub: 1,
+                start: 'top 30%',
+                end: 'bottom 0%',
+                toggleActions: 'play none none reverse',
+                refreshPriority: -1,
+            }
+        });
+
         const heroScrollTrigger = ScrollTrigger.create({
             animation: tlFinal,
             trigger: hero.value,
@@ -115,7 +129,9 @@ async function loadAnimations() {
                 duration: .5,
                 inertia: false,
             },
-            invalidateOnRefresh: true,
+            // invalidateOnRefresh: true,
+            // this ↑ causes a weird visual bug after updating nuxt, 
+            // so this is gonna stay commented for now
             end: () => '+=' + (sliderElements.value.length * 100) * (isDesktop ? 3 : 1),
         })
 
@@ -327,6 +343,11 @@ function jumpOutOfSlider() {
     <div class="hero" ref="hero">
         <div class="hero__container" ref="heroContainer" @click="jumpToHero">
             <div class="hero__content" ref="heroContent">
+                <div class="jump-to-hero">
+                    <AppButtonSecondary :style="{ visibility: currentElement == 0 ? 'visible' : 'hidden' }"
+                        class="button--jump-to-hero jump-to-hero__button" icon="heroicons:arrow-down" @click="jumpToHero" visibility="low"
+                        :theme="sliderData[currentElement].theme" aria-label="Proyectos" />
+                </div>
                 <div class="slider" ref="slider">
                     <SliderElement v-for="(element, index) in sliderData" :src="element.img"
                         :backgroundColor="element.backgroundColor" :borderColor="element.borderColor" :key="index"
@@ -337,28 +358,27 @@ function jumpOutOfSlider() {
             </div>
             <div class="hero__buttons">
                 <AppButtonSecondary :style="{ visibility: currentElement != 0 ? 'visible' : 'hidden' }"
-                    class="button--hero-left" :icon="ArrowLeftIcon" @click="jumpToElement(currentElement - 1)"
+                    class="button--hero-left" icon="heroicons:arrow-left" @click="jumpToElement(currentElement - 1)"
                     visibility="low" :theme="sliderData[currentElement].theme" aria-label="Proyecto anterior" />
 
                 <div class="hero__button-group" ref="heroButtons">
                     <AppLink v-if="sliderData[currentElement].link" :to="sliderData[currentElement].link"
                         :theme="sliderData[currentElement].theme">Ver más</AppLink>
-                    <AppLink v-if="sliderData[currentElement].externalLink"
-                        :to="sliderData[currentElement].externalLink" :theme="sliderData[currentElement].theme"
-                        :icon="ArrowTopRightOnSquareIcon" @click.prevent='jumpToElement(currentElement)'>
+                    <AppLink v-if="sliderData[currentElement].externalLink" :to="sliderData[currentElement].externalLink"
+                        :theme="sliderData[currentElement].theme" icon="heroicons:arrow-top-right-on-square"
+                        @click.prevent='jumpToElement(currentElement)'>
                         Visitar {{ sliderData[currentElement].title }}</AppLink>
                     <AppFakeButton v-else theme="warning">No publicada</AppFakeButton>
-                    <AppLinkSecondary :to="sliderData[currentElement].img" :icon="PhotoIcon"
+                    <AppLinkSecondary :to="sliderData[currentElement].img" icon="heroicons:photo"
                         :theme="sliderData[currentElement].theme">
                         Ver</AppLinkSecondary>
-                    <AppButton v-if="currentElement == sliderData.length - 1" :icon="ArrowDownIcon"
+                    <AppButton v-if="currentElement == sliderData.length - 1" icon="heroicons:arrow-down"
                         @click="jumpOutOfSlider" class="button--habilities" :theme="sliderData[currentElement].theme">
                         Habilidades</AppButton>
                 </div>
 
-                <AppButtonSecondary
-                    :style="{ visibility: currentElement < sliderData.length - 1 ? 'visible' : 'hidden' }"
-                    class="button--hero-right" :icon="ArrowRightIcon" @click="jumpToElement(currentElement + 1)"
+                <AppButtonSecondary :style="{ visibility: currentElement < sliderData.length - 1 ? 'visible' : 'hidden' }"
+                    class="button--hero-right" icon="heroicons:arrow-right" @click="jumpToElement(currentElement + 1)"
                     visibility="low" :theme="sliderData[currentElement].theme" aria-label="Siguiente proyectos" />
             </div>
         </div>
@@ -381,6 +401,12 @@ function jumpOutOfSlider() {
     transition: background-color 1s;
     border-radius: 2rem;
     scale: .95;
+}
+
+.jump-to-hero {
+    position: absolute;
+    top: 1.6%;
+    z-index: 10;
 }
 
 .hero__content {
@@ -428,7 +454,6 @@ function jumpOutOfSlider() {
     align-items: center;
     gap: 1rem;
 }
-
 
 @media (max-width: 768px) {
     .hero__content {

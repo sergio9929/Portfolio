@@ -12,8 +12,6 @@ useHead({
     title: 'Sergio Rodriguez',
 })
 
-useAnalytics()
-
 const router = useRouter()
 const footerVisible = useFooterVisible()
 const container = ref(null)

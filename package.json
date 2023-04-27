@@ -9,11 +9,11 @@
   },
   "devDependencies": {
     "@nuxt/image-edge": "^1.0.0-27827328.bc9ddc0",
-    "nuxt": "^3.0.0"
+    "nuxt": "^3.4.2",
+    "nuxt-gtag": "^0.5.7",
+    "nuxt-icon": "^0.4.0"
   },
   "dependencies": {
-    "@heroicons/vue": "^2.0.13",
-    "firebase": "^9.14.0",
-    "gsap": "^3.11.3"
+    "gsap": "^3.11.5"
   }
 }

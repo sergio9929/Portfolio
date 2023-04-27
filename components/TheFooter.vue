@@ -1,5 +1,4 @@
 <script setup>
-import { DocumentTextIcon, CommandLineIcon } from '@heroicons/vue/24/outline'
 
 const footerVisible = useFooterVisible()
 
@@ -26,9 +25,9 @@ onMounted(() => {
         <AppSection>
             <h2 class="footer__title">Recursos</h2>
             <div class="footer__buttons">
-                <AppLinkSecondary theme="dark" to="Sergio Rodriguez CV.pdf" :icon="DocumentTextIcon">Descargar CV
+                <AppLinkSecondary theme="dark" to="Sergio Rodriguez CV.pdf" icon="heroicons:document-text">Descargar CV
                 </AppLinkSecondary>
-                <AppLinkSecondary theme="dark" to="https://github.com/sergio9929/Portfolio" :icon="CommandLineIcon">Código fuente
+                <AppLinkSecondary theme="dark" to="https://github.com/sergio9929/Portfolio" icon="heroicons:command-line">Código fuente
                 </AppLinkSecondary>
             </div>
         </AppSection>
