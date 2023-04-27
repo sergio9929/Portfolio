@@ -23,12 +23,12 @@ const webp = encodeURIComponent(props.src.replace(/\.[^/.]+$/, ".webp"))
 </script>
 
 <template>
-    <div class="element" :style="{ backgroundColor: props.backgroundColor }">
+    <div class="element" :style="{ backgroundColor: backgroundColor }">
         <div class="element__fade"></div>
         <div class="element__background"></div>
-        <img :src="props.src" width="1500" height="1100" alt="" sizes="(max-width: 768px) 90vw, 70vw" :srcset="(`mobile/${webp} 691w, desktop/${webp} 1344w`)" class="element__img" :style="{ borderColor: props.borderColor }" />
-        <!-- replace this ↑ with the commented component ↓ and remove all .webp images when nuxt/image fixes static generation -->
-        <!-- <NuxtImg format="webp" :src="props.src" sizes="mobile:90vw desktop:70vw" class="element__img" :style="{ borderColor: props.borderColor }" alt="" width="1500" height="1100" /> -->
+        <img :src="src" width="1500" height="1100" alt="" sizes="(max-width: 768px) 90vw, 70vw" :srcset="(`mobile/${webp} 691w, desktop/${webp} 1344w`)" class="element__img" :style="{ borderColor: borderColor }" />
+        <!-- replace this ↑ with the commented component ↓ and remove all .webp images when nuxt/image fixes static generation on windows -->
+        <!-- <NuxtImg format="webp" :src="src" sizes="mobile:90vw desktop:70vw" class="element__img" :style="{ borderColor: borderColor }" alt="" width="1500" height="1100" /> -->
     </div>
 </template>
 

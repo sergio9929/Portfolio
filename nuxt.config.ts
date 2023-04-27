@@ -3,6 +3,8 @@ export default defineNuxtConfig({
     ssr: true,
     modules: [
         '@nuxt/image-edge',
+        'nuxt-gtag',
+        'nuxt-icon',
     ],
     image: {
         screens: {
@@ -36,30 +38,7 @@ export default defineNuxtConfig({
     ],
     runtimeConfig: {
         public: {
-            FIREBASE_API_KEY: process.env.FIREBASE_API_KEY,
-            FIREBASE_AUTH_DOMAIN: process.env.FIREBASE_AUTH_DOMAIN,
-            FIREBASE_PROJECT_ID: process.env.FIREBASE_PROJECT_ID,
-            FIREBASE_STORAGE_BUCKET: process.env.FIREBASE_STORAGE_BUCKET,
-            FIREBASE_MESSAGING_SENDER_ID: process.env.FIREBASE_MESSAGING_SENDER_ID,
-            FIREBASE_APP_ID: process.env.FIREBASE_APP_ID,
-            FIREBASE_MEASUREMENT_ID: process.env.FIREBASE_MEASUREMENT_ID,
             isDev: process.env.NODE_ENV !== 'production',
-        }
-    },
-    build: {
-        transpile: ['@heroicons/vue'],
-        html: {
-            minify: {
-                collapseBooleanAttributes: true,
-                decodeEntities: true,
-                minifyCSS: true,
-                minifyJS: true,
-                processConditionalComments: true,
-                removeEmptyAttributes: true,
-                removeRedundantAttributes: true,
-                trimCustomFragments: true,
-                useShortDoctype: true
-            },
         }
     },
 })

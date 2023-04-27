@@ -10,7 +10,7 @@ const props = defineProps({
     to: {
         required: true
     },
-    icon: {},
+    icon: String,
     visibility: {
         type: String,
         validator(value) {
@@ -22,9 +22,9 @@ const props = defineProps({
 </script>
 
 <template>
-    <NuxtLink class="link" :class="[{'link--icon-only': !$slots.default}, (theme ? `link--${theme}` : ''), (visibility ? `link--${visibility}` : '')]" :to="props.to" target="_blank">
+    <NuxtLink class="link" :class="[{'link--icon-only': !$slots.default}, (theme ? `link--${theme}` : ''), (visibility ? `link--${visibility}` : '')]" :to="to" target="_blank">
         <slot />
-        <Component :is="props.icon" class="link__icon" />
+        <Icon v-if="icon" :name="icon" class="link__icon" />
     </NuxtLink>
 </template>
 
@@ -66,7 +66,7 @@ const props = defineProps({
 }
 
 .link--icon-only {
-    padding: .5em .6em;
+    padding: .5678em .68em;
 }
 
 .link--dark {
@@ -77,10 +77,5 @@ const props = defineProps({
 .link--warning {
     --color: var(--primary-color);
     --background-color: var(--warning-color-hsl);
-}
-
-.link__icon {
-    display: block;
-    width: 1.2em;
 }
 </style>

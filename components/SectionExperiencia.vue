@@ -1,3 +1,30 @@
+<script setup>
+
+function getDateDiff(from, to = Date.now()) {
+    from = new Date(from)
+    to = new Date(to)
+
+    const year = { value: 31536000000, singular: 'año', plural: 'años' }
+    const month = { value: 2592000000, singular: 'mes', plural: 'meses' }
+
+    const diff = Math.abs(to - from)
+    let diffMonths = Math.floor(diff / month.value)
+    let diffYears = Math.floor(diffMonths / 12)
+    diffMonths = diffMonths - diffYears * 12
+
+    return diffYears > 0
+        ? `${diffYears} ${pluralize(diffYears, year)} y ${diffMonths} ${pluralize(diffMonths, month)}`
+        : `${diffMonths} ${pluralize(diffMonths, month)}`
+}
+
+function pluralize(number, { singular, plural }) {
+    return number == 1
+        ? singular
+        : plural
+}
+
+</script>
+
 <template>
     <AppSection class="experiencia">
         <h2 class="section__title">Experiencia</h2>
@@ -5,7 +32,7 @@
             <tbody>
                 <tr class="table__row">
                     <td class="table__title">The Last Dock</td>
-                    <td class="table__info">Enero 2023 - Actualmente</td>
+                    <td class="table__info">Enero 2023 - Actualmente ({{ getDateDiff('2023-01-09') }})</td>
                     <td class="table__content">
                         <p>Diseño y desarrollo de páginas web en WordPress usando plantillas personalizadas (PHP, HTML, CSS,
                             JS) o Elementor, según se requiera.</p>

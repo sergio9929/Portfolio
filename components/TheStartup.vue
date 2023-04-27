@@ -1,5 +1,4 @@
 <script setup>
-import { ArrowDownIcon } from '@heroicons/vue/24/outline'
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
