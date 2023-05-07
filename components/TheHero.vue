@@ -46,29 +46,45 @@ const sliderData = ref([{
     externalLink: 'https://valpatek.com/',
     title: 'Valpatek',
 }, {
+    img: '/Imagen 7.png',
+    backgroundColor: '#121212',
+    theme: 'dark',
+    borderColor: '#fff',
+    link: '',
+    externalLink: 'https://kopuru.com/',
+    title: 'Kopuru (Beta)',
+}, {
+    img: '/Imagen 11.png',
+    backgroundColor: '#fff',
+    theme: 'light',
+    borderColor: '#fff',
+    link: '',
+    externalLink: '',
+    title: 'Sangal Map (Private)',
+}, {
+    img: '/Imagen 8.png',
+    backgroundColor: '#d6d288',
+    theme: 'light',
+    borderColor: '#fff',
+    link: '',
+    externalLink: '',
+    title: 'KEPLER—KARST (WIP)',
+}, {
+    img: '/Imagen 9.png',
+    backgroundColor: '#202020',
+    theme: 'dark',
+    borderColor: '#fff',
+    link: '',
+    externalLink: '',
+    title: 'Fresco Tours (WIP)',
+}, {
     img: '/Imagen 6.png',
     backgroundColor: '#ddddef',
     theme: '',
     borderColor: '#fff',
     link: '',
     externalLink: '',
-    title: '',
-}, {
-    img: '/Imagen 4.png',
-    backgroundColor: '#305888',
-    theme: 'dark',
-    borderColor: '#fff',
-    link: '',
-    externalLink: '',
-    title: '',
-}, {
-    img: '/Imagen 5.png',
-    backgroundColor: '#282828',
-    theme: 'dark',
-    borderColor: '#fff',
-    link: '',
-    externalLink: '',
-    title: '',
+    title: 'loon (WIP)',
 }])
 headerTheme.value = computed(() => sliderData.value[currentElement.value].theme)
 
@@ -345,8 +361,8 @@ function jumpOutOfSlider() {
             <div class="hero__content" ref="heroContent">
                 <div class="jump-to-hero">
                     <AppButtonSecondary :style="{ visibility: currentElement == 0 ? 'visible' : 'hidden' }"
-                        class="button--jump-to-hero jump-to-hero__button" icon="heroicons:arrow-down" @click="jumpToHero" visibility="low"
-                        :theme="sliderData[currentElement].theme" aria-label="Proyectos" />
+                        class="button--jump-to-hero jump-to-hero__button" icon="heroicons:arrow-down" @click="jumpToHero"
+                        visibility="low" :theme="sliderData[currentElement].theme" aria-label="Proyectos" />
                 </div>
                 <div class="slider" ref="slider">
                     <SliderElement v-for="(element, index) in sliderData" :src="element.img"
@@ -368,7 +384,9 @@ function jumpOutOfSlider() {
                         :theme="sliderData[currentElement].theme" icon="heroicons:arrow-top-right-on-square"
                         @click.prevent='jumpToElement(currentElement)'>
                         Visitar {{ sliderData[currentElement].title }}</AppLink>
-                    <AppFakeButton v-else theme="warning">No publicada</AppFakeButton>
+                    <AppFakeButton v-else theme="warning">
+                        {{ sliderData[currentElement].title || 'No publicada' }}
+                    </AppFakeButton>
                     <AppLinkSecondary :to="sliderData[currentElement].img" icon="heroicons:photo"
                         :theme="sliderData[currentElement].theme">
                         Ver</AppLinkSecondary>
