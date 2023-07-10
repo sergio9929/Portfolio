@@ -7,7 +7,7 @@
                     <td class="table__left">
                         <AppTextSecondary>&lt;</AppTextSecondary>html <AppTextSecondary>/></AppTextSecondary> <AppStar /><AppStar /><AppStar />
                     </td>
-                    <td class="table__center">
+                    <td class="table__center" colspan="2">
                         <AppTextSecondary>.</AppTextSecondary>css <AppStar /><AppStar /><AppStar />
                     </td>
                     <td class="table__right">
@@ -18,7 +18,7 @@
                     <td class="table__left">
                         <AppTextSecondary>&lt;?</AppTextSecondary>php <AppStar /><AppStar />
                     </td>
-                    <td class="table__center">
+                    <td class="table__center" colspan="2">
                         <AppTextSecondary>SELECT</AppTextSecondary> mysql <AppStar /><AppStar />
                     </td>
                     <td class="table__right">WordPress <AppStar /><AppStar /></td>
@@ -28,6 +28,7 @@
                         <AppTextSecondary>ref('</AppTextSecondary>vue<AppTextSecondary>')</AppTextSecondary> <AppStar />
                     </td>
                     <td class="table__center">Nuxt <AppStar /></td>
+                    <td class="table__center">Pocketbase <AppStar /></td>
                     <td class="table__right">Firebase <AppStar /></td>
                 </tr>
             </tbody>
