@@ -52,7 +52,15 @@ const sliderData = ref([{
     borderColor: '#fff',
     link: '',
     externalLink: 'https://kopuru.com/',
-    title: 'Kopuru (Beta)',
+    title: 'Kopuru',
+}, {
+    img: '/Imagen 8.png',
+    backgroundColor: '#202728',
+    theme: 'dark',
+    borderColor: '#fff',
+    link: '',
+    externalLink: 'https://frescotours.com/',
+    title: 'Fresco Tours',
 }, {
     img: '/Imagen 11.png',
     backgroundColor: '#fff',
@@ -60,23 +68,7 @@ const sliderData = ref([{
     borderColor: '#fff',
     link: '',
     externalLink: '',
-    title: 'Sangal Map (Private)',
-}, {
-    img: '/Imagen 8.png',
-    backgroundColor: '#d6d288',
-    theme: 'light',
-    borderColor: '#fff',
-    link: '',
-    externalLink: '',
-    title: 'KEPLER—KARST (WIP)',
-}, {
-    img: '/Imagen 9.png',
-    backgroundColor: '#202020',
-    theme: 'dark',
-    borderColor: '#fff',
-    link: '',
-    externalLink: '',
-    title: 'Fresco Tours (WIP)',
+    title: 'Sangal Map (Privada)',
 }, {
     img: '/Imagen 6.png',
     backgroundColor: '#ddddef',
@@ -84,7 +76,7 @@ const sliderData = ref([{
     borderColor: '#fff',
     link: '',
     externalLink: '',
-    title: 'loon (WIP)',
+    title: 'loon (En desarrollo)',
 }])
 headerTheme.value = computed(() => sliderData.value[currentElement.value].theme)
 

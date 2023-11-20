@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
     ssr: true,
     modules: [
-        '@nuxt/image-edge',
+        '@nuxt/image',
         'nuxt-gtag',
         'nuxt-icon',
     ],
