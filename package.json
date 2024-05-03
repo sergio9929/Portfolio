@@ -8,12 +8,12 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "@nuxt/image": "^1.0.0",
-    "nuxt": "^3.8.1",
-    "nuxt-gtag": "^1.1.1",
-    "nuxt-icon": "^0.6.6"
+    "@nuxt/image": "^1.7.0",
+    "nuxt": "^3.11.2",
+    "nuxt-gtag": "^2.0.5",
+    "nuxt-icon": "^0.6.10"
   },
   "dependencies": {
-    "gsap": "^3.12.2"
+    "gsap": "^3.12.5"
   }
 }
