@@ -18,9 +18,10 @@ const currentElement = useCurrentElement()
 const headerTheme = useHeaderTheme()
 const heroInViewport = ref(false)
 const sliderOptions = ref({
-    width: 40,
-    gap: 1,
+    width: '40rem',
+    gap: '1rem',
 })
+const currentBackgroundColor = computed(() => sliderData.value[currentElement.value].backgroundColor)
 const sliderData = ref([{
     img: '/Imagen 1.png',
     backgroundColor: '#434343',
@@ -89,8 +90,6 @@ watch(sliderElements, () => {
 
 async function loadAnimations() {
     await nextTick();
-
-    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, Draggable);
 
     tl = gsap.timeline({
         paused: true,
@@ -185,15 +184,15 @@ async function loadAnimations() {
 
         if (isDesktop) {
             sliderOptions.value = {
-                width: 40,
-                gap: 1,
+                width: '40rem',
+                gap: '1rem',
             }
 
             heroDraggable[0].enable()
         } else {
             sliderOptions.value = {
-                width: 20,
-                gap: 1,
+                width: '20rem',
+                gap: '1rem',
             }
 
             heroDraggable[0].disable()
@@ -407,7 +406,7 @@ function jumpOutOfSlider() {
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    background-color: v-bind('sliderData[currentElement].backgroundColor');
+    background-color: v-bind('currentBackgroundColor');
     transition: background-color 1s;
     border-radius: 2rem;
     scale: .95;
@@ -432,17 +431,17 @@ function jumpOutOfSlider() {
 }
 
 .slider {
-    width: v-bind('sliderOptions.width + "rem"');
+    width: v-bind('sliderOptions.width');
     height: auto;
     aspect-ratio: 15 / 11;
-    gap: v-bind('sliderOptions.gap + "rem"');
+    gap: v-bind('sliderOptions.gap');
     display: flex;
     align-items: center;
 }
 
 .element__fade {
     transition: background-color 1s;
-    background-color: v-bind('sliderData[currentElement].backgroundColor');
+    background-color: v-bind('currentBackgroundColor');
 }
 
 .--unpublished {
@@ -477,7 +476,7 @@ function jumpOutOfSlider() {
         flex-direction: column;
         align-items: center;
         position: relative;
-        top: calc(50% - v-bind('(sliderOptions.width / 2) + "rem"'));
+        top: calc(50% - (v-bind('sliderOptions.width') / 2));
         margin-left: 0;
     }
 

@@ -13,7 +13,6 @@ onMounted(() => {
     startupTitle.value.innerHTML = titleWords.map(word => `<span class="startup__title-outer"><span class="startup__title-inner">${word}</span></span>`).join(' ')
     startupSubtitle.value.innerHTML = subtitleWords.map(word => `<span class="startup__subtitle-outer"><span class="startup__subtitle-inner">${word}</span></span>`).join(' ')
 
-    gsap.registerPlugin(ScrollTrigger);
     console.log('Startup animations: ✨')
 
     const tl = gsap.timeline({

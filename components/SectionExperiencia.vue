@@ -9,12 +9,23 @@ function getDateDiff(from, to = Date.now()) {
 
     const diff = Math.abs(to - from)
     let diffMonths = Math.floor(diff / month.value)
-    let diffYears = Math.floor(diffMonths / 12)
+    const diffYears = Math.floor(diffMonths / 12)
+
     diffMonths = diffMonths - diffYears * 12
 
-    return diffYears > 0
-        ? `${diffYears} ${pluralize(diffYears, year)} y ${diffMonths} ${pluralize(diffMonths, month)}`
-        : `${diffMonths} ${pluralize(diffMonths, month)}`
+    let message = ''
+    if (diffYears > 0) {
+        message += `${diffYears} ${pluralize(diffYears, year)}`
+
+        if (diffMonths > 0) {
+            message += `y`
+        }
+    }
+    if (diffMonths > 0) {
+        message += `${diffMonths} ${pluralize(diffMonths, month)}`
+    }
+
+    return message
 }
 
 function pluralize(number, { singular, plural }) {
@@ -28,11 +39,21 @@ function pluralize(number, { singular, plural }) {
 <template>
     <AppSection class="experiencia">
         <h2 class="section__title">Experiencia</h2>
+
         <table class="table">
             <tbody>
                 <tr class="table__row">
+                    <td class="table__title">Irontec</td>
+                    <td class="table__info">Enero 2024 - Actualmente ({{ getDateDiff('2024-01-02') }})</td>
+                    <td class="table__content">
+                        <p>Desarrollo front-end y mantenimiento de aplicaciones híbridas web/móvil (HTML, CSS, TS, Angular,
+                            Ionic).</p>
+                    </td>
+                </tr>
+
+                <tr class="table__row">
                     <td class="table__title">The Last Dock</td>
-                    <td class="table__info">Enero 2023 - Actualmente ({{ getDateDiff('2023-01-09') }})</td>
+                    <td class="table__info">Enero 2023 - Enero 2024 ({{ getDateDiff('2023-01-09', '2024-01-12') }})</td>
                     <td class="table__content">
                         <p>Diseño y desarrollo de páginas web en WordPress usando plantillas personalizadas (PHP, HTML, CSS,
                             JS) o Elementor, según se requiera.</p>
@@ -41,6 +62,7 @@ function pluralize(number, { singular, plural }) {
                             clientes (Nuxt 3, Vue 3, Firebase).</p>
                     </td>
                 </tr>
+
                 <tr class="table__row">
                     <td class="table__title">DocPath</td>
                     <td class="table__info">Enero 2021 - Octubre 2022 (1 año y 9 meses)</td>
@@ -53,6 +75,7 @@ function pluralize(number, { singular, plural }) {
                         <p>Diseño y desarrollo de nueva aplicación (Vue 3, Firebase)</p>
                     </td>
                 </tr>
+
                 <tr class="table__row">
                     <td class="table__title">Ibermática</td>
                     <td class="table__info">Septiembre 2020 - Enero 2021 (4 meses)</td>
