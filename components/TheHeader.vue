@@ -7,7 +7,6 @@ const footerVisible = useFooterVisible()
 const headerTheme = useHeaderTheme()
 const currentNavItem = ref(-1)
 const header = ref(null)
-const animationFinished = ref(false)
 
 onMounted(() => {
     [document.querySelector('.hero'), document.querySelector('.habilidades'), document.querySelector('.experiencia')].forEach((section, i) => {

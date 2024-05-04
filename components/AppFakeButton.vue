@@ -1,25 +1,14 @@
-<script setup>
-
-const props = defineProps({
-    theme: {
-        type: String,
-        validator(value) {
-            return ['dark', 'warning'].includes(value)
-        }
-    },
-    icon: String,
-    visibility: {
-        type: String,
-        validator(value) {
-            return value == 'low'
-        }
-    }
-})
-
+<script setup lang="ts">
+const props = defineProps<{
+    theme?: 'dark' | 'warning',
+    icon?: string,
+    visibility?: 'low'
+}>()
 </script>
 
 <template>
-    <span class="button" :class="[{'button--icon-only': !$slots.default}, (theme ? `button--${theme}` : ''), (visibility ? `button--${visibility}` : '')]">
+    <span class="button"
+        :class="[{ 'button--icon-only': !$slots.default }, (theme ? `button--${theme}` : ''), (visibility ? `button--${visibility}` : '')]">
         <slot />
         <Icon v-if="icon" :name="icon" class="button__icon" />
     </span>
@@ -29,7 +18,7 @@ const props = defineProps({
 .button {
     --color: var(--base-color);
     --background-color: var(--primary-color-hsl);
-    
+
     background-color: hsl(var(--background-color));
     color: var(--color);
     padding: .5em 1em;

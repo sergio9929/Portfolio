@@ -1,5 +1,4 @@
 <script setup>
-
 function getDateDiff(from, to = Date.now()) {
     from = new Date(from)
     to = new Date(to)
@@ -33,7 +32,6 @@ function pluralize(number, { singular, plural }) {
         ? singular
         : plural
 }
-
 </script>
 
 <template>

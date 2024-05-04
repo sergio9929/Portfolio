@@ -1,5 +1,4 @@
 <script setup>
-
 const footerVisible = useFooterVisible()
 
 onMounted(() => {
@@ -17,7 +16,6 @@ onMounted(() => {
 
     observer.observe(document.getElementById('footer-observer'))
 })
-
 </script>
 
 <template>
