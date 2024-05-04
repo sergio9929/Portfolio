@@ -1,7 +1,3 @@
-<script setup>
-
-</script>
-    
 <template>
     <AppSection>
         <h2 class="section__title">Idiomas</h2>

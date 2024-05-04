@@ -1,28 +1,19 @@
-<script setup>
+<script setup lang="ts">
+import { type RouteLocationRaw } from 'vue-router';
 
-const props = defineProps({
-    theme: {
-        type: String,
-        validator(value) {
-            return ['', 'light', 'dark', 'warning'].includes(value)
-        }
-    },
-    to: {
-        required: true
-    },
-    icon: String,
-    visibility: {
-        type: String,
-        validator(value) {
-            return value == 'low'
-        }
-    }
-})
+const props = defineProps<{
+    to: RouteLocationRaw,
+    theme?: 'dark' | 'warning',
+    icon?: string,
+    visibility?: 'low'
+}>()
 
 </script>
 
 <template>
-    <NuxtLink class="link" :class="[{'link--icon-only': !$slots.default}, (theme ? `link--${theme}` : ''), (visibility ? `link--${visibility}` : '')]" :to="to" target="_blank">
+    <NuxtLink class="link"
+        :class="[{ 'link--icon-only': !$slots.default }, (theme ? `link--${theme}` : ''), (visibility ? `link--${visibility}` : '')]"
+        :to="to" target="_blank">
         <slot />
         <Icon v-if="icon" :name="icon" class="link__icon" />
     </NuxtLink>
@@ -47,7 +38,8 @@ const props = defineProps({
     transition: scale .2s, opacity .2s, box-shadow .5s, color .5s;
 }
 
-.link:hover, .link:focus-visible {
+.link:hover,
+.link:focus-visible {
     scale: 1.1;
 }
 
@@ -61,7 +53,8 @@ const props = defineProps({
     opacity: .3;
 }
 
-.link--low:hover, .link--low:focus-visible {
+.link--low:hover,
+.link--low:focus-visible {
     opacity: 1;
 }
 

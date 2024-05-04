@@ -1,21 +1,9 @@
-<script setup>
-
-const props = defineProps({
-    theme: {
-        type: String,
-        validator(value) {
-            return ['', 'light', 'dark', 'warning'].includes(value)
-        }
-    },
-    icon: String,
-    visibility: {
-        type: String,
-        validator(value) {
-            return value == 'low'
-        }
-    }
-})
-
+<script setup lang="ts">
+const props = defineProps<{
+    theme?: 'dark' | 'warning',
+    icon?: string,
+    visibility?: 'low'
+}>()
 </script>
 
 <template>

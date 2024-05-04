@@ -6,57 +6,73 @@
             <tbody>
                 <tr class="table__row">
                     <td class="table__left">
-                        <AppTextSecondary>&lt;</AppTextSecondary>html <AppTextSecondary>/></AppTextSecondary>
-                        <AppStar v-for="n in 4" />
+                        <TextWithStars :stars="4">
+                            <AppTextSecondary>&lt;</AppTextSecondary>html<AppTextSecondary>&gt;</AppTextSecondary>
+                        </TextWithStars>
                     </td>
                     <td class="table__center" colspan="2">
-                        <AppTextSecondary>.</AppTextSecondary>css
-                        <AppStar v-for="n in 4" />
+                        <TextWithStars :stars="4">
+                            <AppTextSecondary>.</AppTextSecondary>css
+                        </TextWithStars>
                     </td>
                     <td class="table__right">
-                        <AppTextSecondary>let</AppTextSecondary> js
-                        <AppStar v-for="n in 4" />
+                        <TextWithStars :stars="4">
+                            <AppTextSecondary>let</AppTextSecondary> js
+                        </TextWithStars>
                     </td>
                 </tr>
 
                 <tr class="table__row">
                     <td class="table__left">
-                        <AppTextSecondary>&lt;?</AppTextSecondary>php
-                        <AppStar v-for="n in 3" />
+                        <TextWithStars :stars="3">
+                            <AppTextSecondary>&lt;?</AppTextSecondary>php
+                        </TextWithStars>
                     </td>
                     <td class="table__center" colspan="2">
-                        <AppTextSecondary>SELECT</AppTextSecondary> mysql
-                        <AppStar v-for="n in 3" />
+                        <TextWithStars :stars="3">
+                            <AppTextSecondary>SELECT</AppTextSecondary> mysql
+                        </TextWithStars>
                     </td>
-                    <td class="table__right">WordPress
-                        <AppStar v-for="n in 3" />
+                    <td class="table__right">
+                        <TextWithStars :stars="3">
+                            WordPress
+                        </TextWithStars>
                     </td>
                 </tr>
 
                 <tr class="table__row">
                     <td class="table__left">
-                        <AppTextSecondary>ref('</AppTextSecondary>vue<AppTextSecondary>')</AppTextSecondary>
-                        <AppStar v-for="n in 2" />
+                        <TextWithStars :stars="2">
+                            <AppTextSecondary>ref('</AppTextSecondary>vue<AppTextSecondary>')</AppTextSecondary>
+                        </TextWithStars>
                     </td>
                     <td class="table__center">
-                        <AppTextSecondary>type</AppTextSecondary> TypeScript
-                        <AppStar v-for="n in 2" />
+                        <TextWithStars :stars="2">
+                            <AppTextSecondary>type</AppTextSecondary> TypeScript
+                        </TextWithStars>
                     </td>
-                    <td class="table__center">Nuxt
-                        <AppStar v-for="n in 2" />
+                    <td class="table__center">
+                        <TextWithStars :stars="2">
+                            Nuxt
+                        </TextWithStars>
                     </td>
-                    <td class="table__right">PocketBase
-                        <AppStar v-for="n in 2" />
+                    <td class="table__right">
+                        <TextWithStars :stars="2">
+                            PocketBase
+                        </TextWithStars>
                     </td>
                 </tr>
 
                 <tr class="table__row">
                     <td class="table__left" colspan="3">
-                        <AppTextSecondary>@</AppTextSecondary>Angular<AppTextSecondary>()</AppTextSecondary>
-                        <AppStar />
+                        <TextWithStars :stars="1">
+                            <AppTextSecondary>@</AppTextSecondary>Angular<AppTextSecondary>()</AppTextSecondary>
+                        </TextWithStars>
                     </td>
-                    <td class="table__right">Firebase
-                        <AppStar />
+                    <td class="table__right">
+                        <TextWithStars :stars="1">
+                            Firebase
+                        </TextWithStars>
                     </td>
                 </tr>
             </tbody>
