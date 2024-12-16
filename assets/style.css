@@ -1,4 +1,6 @@
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
     padding: 0;
     margin: 0;
@@ -39,7 +41,12 @@ a {
     text-decoration: none;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     margin-bottom: .3em;
 }
 
@@ -47,7 +54,7 @@ h2 {
     font-size: 8rem;
 }
 
-p:not(:last-child) {
+p:where(:not(:last-child)) {
     margin-bottom: 1em;
 }
 
@@ -56,7 +63,7 @@ p:not(:last-child) {
     flex-direction: column;
     align-items: center;
     background-color: var(--base-color);
-    
+
     position: relative;
     z-index: 1;
     padding-bottom: 6rem;
@@ -117,6 +124,15 @@ p:not(:last-child) {
     color: var(--secondary-color);
 }
 
+.table__date-range {
+    margin-bottom: 0;
+}
+
+.table__date-diff {
+    margin-bottom: 0;
+    color: var(--secondary-color);
+}
+
 @media screen and (min-width: 1280px) {
     html {
         font-size: 1.25vw;
@@ -152,7 +168,9 @@ p:not(:last-child) {
         padding: 0;
     }
 
-    .table__title, .table__info, .table__content {
+    .table__title,
+    .table__info,
+    .table__content {
         width: 100%;
     }
 
