@@ -22,13 +22,37 @@ const sliderOptions = ref({
 })
 const currentBackgroundColor = computed(() => sliderData.value[currentElement.value].backgroundColor)
 const sliderData = ref([{
-    img: '/Imagen 1.png',
-    backgroundColor: '#434343',
+    img: '/Imagen 12.png',
+    backgroundColor: '#1f1f1f',
     theme: 'dark',
     borderColor: '',
     link: '',
-    externalLink: 'https://www.mnker.com/',
-    title: 'Mnker',
+    externalLink: 'https://github.com/sergio9929/userstyles',
+    title: 'Userstyles',
+}, {
+    img: '/Imagen 3.png',
+    backgroundColor: '#b6d1e7',
+    theme: '',
+    borderColor: '',
+    link: '',
+    externalLink: 'https://valpatek.com/',
+    title: 'Valpatek',
+}, {
+    img: '/Imagen 7.png',
+    backgroundColor: '#121212',
+    theme: 'dark',
+    borderColor: '',
+    link: '',
+    externalLink: 'https://kopuru.com/',
+    title: 'Kopuru',
+}, {
+    img: '/Imagen 8.png',
+    backgroundColor: '#202728',
+    theme: 'dark',
+    borderColor: '',
+    link: '',
+    externalLink: 'https://frescotours.com/',
+    title: 'Fresco Tours',
 }, {
     img: '/Imagen 2.png',
     backgroundColor: '#F8E6CF',
@@ -38,34 +62,18 @@ const sliderData = ref([{
     externalLink: 'https://vivebenalmadena.com/',
     title: 'Vive Benalmadena',
 }, {
-    img: '/Imagen 3.png',
-    backgroundColor: '#b6d1e7',
-    theme: '',
-    borderColor: '#fff',
-    link: '',
-    externalLink: 'https://valpatek.com/',
-    title: 'Valpatek',
-}, {
-    img: '/Imagen 7.png',
-    backgroundColor: '#121212',
+    img: '/Imagen 1.png',
+    backgroundColor: '#434343',
     theme: 'dark',
-    borderColor: '#fff',
+    borderColor: '',
     link: '',
-    externalLink: 'https://kopuru.com/',
-    title: 'Kopuru',
-}, {
-    img: '/Imagen 8.png',
-    backgroundColor: '#202728',
-    theme: 'dark',
-    borderColor: '#fff',
-    link: '',
-    externalLink: 'https://frescotours.com/',
-    title: 'Fresco Tours',
+    externalLink: '',
+    title: 'Mnker (No disponible)',
 }, {
     img: '/Imagen 11.png',
     backgroundColor: '#fff',
     theme: 'light',
-    borderColor: '#fff',
+    borderColor: '',
     link: '',
     externalLink: '',
     title: 'Sangal Map (Privada)',
@@ -73,7 +81,7 @@ const sliderData = ref([{
     img: '/Imagen 6.png',
     backgroundColor: '#ddddef',
     theme: '',
-    borderColor: '#fff',
+    borderColor: '',
     link: '',
     externalLink: '',
     title: 'loon (En desarrollo)',
@@ -351,8 +359,9 @@ function jumpOutOfSlider() {
             <div class="hero__content" ref="heroContent">
                 <div class="jump-to-hero">
                     <AppButtonSecondary :style="{ visibility: currentElement == 0 ? 'visible' : 'hidden' }"
-                        class="button--jump-to-hero jump-to-hero__button" icon="heroicons:arrow-down" @click="jumpToHero"
-                        visibility="low" :theme="sliderData[currentElement].theme" aria-label="Proyectos" />
+                        class="button--jump-to-hero jump-to-hero__button" icon="heroicons:arrow-down"
+                        @click="jumpToHero" visibility="low" :theme="sliderData[currentElement].theme"
+                        aria-label="Proyectos" />
                 </div>
                 <div class="slider" ref="slider">
                     <SliderElement v-for="(element, index) in sliderData" :src="element.img"
@@ -370,9 +379,9 @@ function jumpOutOfSlider() {
                 <div class="hero__button-group" ref="heroButtons">
                     <AppLink v-if="sliderData[currentElement].link" :to="sliderData[currentElement].link"
                         :theme="sliderData[currentElement].theme">Ver más</AppLink>
-                    <AppLink v-if="sliderData[currentElement].externalLink" :to="sliderData[currentElement].externalLink"
-                        :theme="sliderData[currentElement].theme" icon="heroicons:arrow-top-right-on-square"
-                        @click.prevent='jumpToElement(currentElement)'>
+                    <AppLink v-if="sliderData[currentElement].externalLink"
+                        :to="sliderData[currentElement].externalLink" :theme="sliderData[currentElement].theme"
+                        icon="heroicons:arrow-top-right-on-square" @click.prevent='jumpToElement(currentElement)'>
                         Visitar {{ sliderData[currentElement].title }}</AppLink>
                     <AppFakeButton v-else theme="warning">
                         {{ sliderData[currentElement].title || 'No publicada' }}
@@ -385,7 +394,8 @@ function jumpOutOfSlider() {
                         Habilidades</AppButton>
                 </div>
 
-                <AppButtonSecondary :style="{ visibility: currentElement < sliderData.length - 1 ? 'visible' : 'hidden' }"
+                <AppButtonSecondary
+                    :style="{ visibility: currentElement < sliderData.length - 1 ? 'visible' : 'hidden' }"
                     class="button--hero-right" icon="heroicons:arrow-right" @click="jumpToElement(currentElement + 1)"
                     visibility="low" :theme="sliderData[currentElement].theme" aria-label="Siguiente proyectos" />
             </div>
