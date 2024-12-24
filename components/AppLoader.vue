@@ -48,7 +48,7 @@
 @keyframes lds-ellipsis1 {
     0% {
         transform: scale(0);
-        
+
     }
 
     100% {
