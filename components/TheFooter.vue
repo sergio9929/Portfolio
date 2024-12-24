@@ -25,11 +25,13 @@ onMounted(() => {
             <div class="footer__buttons">
                 <AppLinkSecondary theme="dark" to="Sergio Rodriguez CV.pdf" icon="heroicons:document-text">Descargar CV
                 </AppLinkSecondary>
-                <AppLinkSecondary theme="dark" to="https://github.com/sergio9929/Portfolio" icon="heroicons:command-line">
+                <AppLinkSecondary theme="dark" to="https://github.com/sergio9929/Portfolio"
+                    icon="heroicons:command-line">
                     Código fuente </AppLinkSecondary>
                 <AppLinkSecondary theme="dark" to="https://github.com/sergio9929" icon="simple-icons:github">Github
                 </AppLinkSecondary>
-                <AppLinkSecondary theme="dark" to="https://dribbble.com/sergio9929" icon="simple-icons:dribbble">Dribbble
+                <AppLinkSecondary theme="dark" to="https://dribbble.com/sergio9929" icon="simple-icons:dribbble">
+                    Dribbble
                 </AppLinkSecondary>
             </div>
         </AppSection>

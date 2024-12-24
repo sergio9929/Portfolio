@@ -10,7 +10,7 @@ const props = defineProps<{
     <button class="button"
         :class="[{ 'button--icon-only': !$slots.default }, (theme ? `button--${theme}` : ''), (visibility ? `button--${visibility}` : '')]">
         <slot />
-        <Icon :name="icon" class="button__icon" />
+        <Icon v-if="icon" :name="icon" class="button__icon" />
     </button>
 </template>
 

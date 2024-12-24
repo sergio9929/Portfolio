@@ -167,10 +167,12 @@ onMounted(() => {
     .startup__content {
         padding-bottom: 1rem;
     }
+
     .startup__title {
         margin-bottom: 1rem;
         line-height: 1.2;
     }
+
     .startup__subtitle {
         font-size: 1rem;
     }

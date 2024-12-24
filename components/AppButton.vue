@@ -7,7 +7,8 @@ const props = defineProps<{
 </script>
 
 <template>
-    <button class="button" :class="[{'button--icon-only': !$slots.default}, (theme ? `button--${theme}` : ''), (visibility ? `button--${visibility}` : '')]">
+    <button class="button"
+        :class="[{ 'button--icon-only': !$slots.default }, (theme ? `button--${theme}` : ''), (visibility ? `button--${visibility}` : '')]">
         <slot />
         <Icon v-if="icon" :name="icon" class="button__icon" />
     </button>
@@ -24,7 +25,7 @@ const props = defineProps<{
     font-family: inherit;
     border: none;
     cursor: pointer;
-    
+
     box-shadow: 0 0 0 1em transparent;
     background-color: hsl(var(--background-color));
     color: var(--color);
@@ -38,7 +39,8 @@ const props = defineProps<{
     transition: scale .2s, opacity .2s, box-shadow .5s, color .5s;
 }
 
-.button:hover, .button:focus-visible {
+.button:hover,
+.button:focus-visible {
     scale: 1.1;
 }
 
@@ -52,7 +54,8 @@ const props = defineProps<{
     opacity: .3;
 }
 
-.button--low:hover, .button--low:focus-visible {
+.button--low:hover,
+.button--low:focus-visible {
     opacity: 1;
 }
 

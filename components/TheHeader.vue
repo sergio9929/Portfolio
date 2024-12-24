@@ -52,10 +52,12 @@ function goToFooter() {
                         <NuxtLink to="javascript:void(0)" @click="goToSection('.pin-spacer', -50)">Proyectos</NuxtLink>
                     </li>
                     <li class="nav__item" :class="{ 'nav__item--active': currentNavItem == 1 }">
-                        <NuxtLink to="javascript:void(0)" @click="goToSection('.habilidades', 100)">Habilidades</NuxtLink>
+                        <NuxtLink to="javascript:void(0)" @click="goToSection('.habilidades', 100)">Habilidades
+                        </NuxtLink>
                     </li>
                     <li class="nav__item" :class="{ 'nav__item--active': currentNavItem == 2 }">
-                        <NuxtLink to="javascript:void(0)" @click="goToSection('.experiencia', 100)">Experiencia</NuxtLink>
+                        <NuxtLink to="javascript:void(0)" @click="goToSection('.experiencia', 100)">Experiencia
+                        </NuxtLink>
                     </li>
                 </ul>
                 <AppLinkSecondary to="javascript:void(0)" :theme="headerTheme" target="" @click="goToFooter">Contáctame
