@@ -17,7 +17,7 @@ function getDateDiff(from, to = Date.now()) {
         message += `${diffYears} ${pluralize(diffYears, year)}`
 
         if (diffMonths > 0) {
-            message += `y`
+            message += ` y `
         }
     }
     if (diffMonths > 0) {
