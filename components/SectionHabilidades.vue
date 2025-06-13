@@ -25,10 +25,15 @@
                 <tr class="table__row">
                     <td class="table__left">
                         <TextWithStars :stars="3">
+                            <AppTextSecondary>type</AppTextSecondary> TypeScript
+                        </TextWithStars>
+                    </td>
+                    <td class="table__center">
+                        <TextWithStars :stars="3">
                             <AppTextSecondary>&lt;?</AppTextSecondary>php
                         </TextWithStars>
                     </td>
-                    <td class="table__center" colspan="2">
+                    <td class="table__center">
                         <TextWithStars :stars="3">
                             <AppTextSecondary>SELECT</AppTextSecondary> mysql
                         </TextWithStars>
@@ -43,12 +48,12 @@
                 <tr class="table__row">
                     <td class="table__left">
                         <TextWithStars :stars="2">
-                            <AppTextSecondary>ref('</AppTextSecondary>vue<AppTextSecondary>')</AppTextSecondary>
+                            <AppTextSecondary>@</AppTextSecondary>Angular<AppTextSecondary>()</AppTextSecondary>
                         </TextWithStars>
                     </td>
                     <td class="table__center">
                         <TextWithStars :stars="2">
-                            <AppTextSecondary>type</AppTextSecondary> TypeScript
+                            <AppTextSecondary>ref('</AppTextSecondary>vue<AppTextSecondary>')</AppTextSecondary>
                         </TextWithStars>
                     </td>
                     <td class="table__center">
@@ -66,7 +71,7 @@
                 <tr class="table__row">
                     <td class="table__left" colspan="3">
                         <TextWithStars :stars="1">
-                            <AppTextSecondary>@</AppTextSecondary>Angular<AppTextSecondary>()</AppTextSecondary>
+                            Capacitor
                         </TextWithStars>
                     </td>
                     <td class="table__right">

@@ -41,6 +41,10 @@ onMounted(() => {
             <div class="footer__buttons">
                 <AppLinkSecondary theme="dark" to="mailto:sergio9929@hotmail.com">sergio9929@hotmail.com
                 </AppLinkSecondary>
+                <AppLinkSecondary theme="dark" to="https://www.linkedin.com/in/sergio9929/"
+                    icon="simple-icons:linkedin">
+                    LinkedIn
+                </AppLinkSecondary>
                 <AppFakeButtonSecondary theme="dark">España > Vizcaya > Durango</AppFakeButtonSecondary>
             </div>
         </AppSection>
