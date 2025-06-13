@@ -48,17 +48,17 @@
                 <tr class="table__row">
                     <td class="table__left">
                         <TextWithStars :stars="2">
-                            <AppTextSecondary>@</AppTextSecondary>Angular<AppTextSecondary>()</AppTextSecondary>
-                        </TextWithStars>
-                    </td>
-                    <td class="table__center">
-                        <TextWithStars :stars="2">
                             <AppTextSecondary>ref('</AppTextSecondary>vue<AppTextSecondary>')</AppTextSecondary>
                         </TextWithStars>
                     </td>
                     <td class="table__center">
                         <TextWithStars :stars="2">
                             Nuxt
+                        </TextWithStars>
+                    </td>
+                    <td class="table__center">
+                        <TextWithStars :stars="2">
+                            <AppTextSecondary>@</AppTextSecondary>Angular<AppTextSecondary>()</AppTextSecondary>
                         </TextWithStars>
                     </td>
                     <td class="table__right">
