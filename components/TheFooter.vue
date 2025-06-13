@@ -42,6 +42,10 @@ onMounted(() => {
                 <AppLinkSecondary theme="dark" to="mailto:sergio9929@hotmail.com">sergio9929@hotmail.com
                 </AppLinkSecondary>
                 <AppLinkSecondary theme="dark" to="tel:+34622593344">622 59 33 44</AppLinkSecondary>
+                <AppLinkSecondary theme="dark" to="https://www.linkedin.com/in/sergio9929/"
+                    icon="simple-icons:linkedin">
+                    LinkedIn
+                </AppLinkSecondary>
                 <AppFakeButtonSecondary theme="dark">España > Vizcaya > Durango</AppFakeButtonSecondary>
             </div>
         </AppSection>
