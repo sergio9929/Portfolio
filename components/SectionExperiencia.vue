@@ -47,9 +47,10 @@ function pluralize(number, { singular, plural }) {
                         <p class="table__date-diff">({{ getDateDiff('2024-01-02') }})</p>
                     </td>
                     <td class="table__content">
-                        <p>Diseño, desarrollo y mantenimiento de aplicaciones web e híbridas web/móvil (HTML, CSS, TS,
-                            Angular, Ionic).</p>
-                        <p>Diseño, desarrollo y mantenimiento de software y APIs (Node).</p>
+                        <p>Liderazgo técnico de un equipo.</p>
+                        <p>Análisis, diseño, desarrollo y mantenimiento de aplicaciones web e híbridas web/móvil (HTML,
+                            CSS, TS, Angular, Ionic).</p>
+                        <p>Análisis, diseño, desarrollo y mantenimiento de software y APIs (Node).</p>
                     </td>
                 </tr>
 

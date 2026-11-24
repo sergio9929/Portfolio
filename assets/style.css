@@ -70,6 +70,12 @@ p:where(:not(:last-child)) {
     border-radius: 0 0 2rem 2rem;
 }
 
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
 .primary-text {
     color: var(--primary-color);
 }

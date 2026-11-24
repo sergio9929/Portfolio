@@ -5,82 +5,58 @@
         <table class="table">
             <tbody>
                 <tr class="table__row">
-                    <td class="table__left">
-                        <TextWithStars :stars="4">
-                            <AppTextSecondary>&lt;</AppTextSecondary>html<AppTextSecondary>&gt;</AppTextSecondary>
-                        </TextWithStars>
-                    </td>
-                    <td class="table__center" colspan="2">
-                        <TextWithStars :stars="4">
-                            <AppTextSecondary>.</AppTextSecondary>css
-                        </TextWithStars>
-                    </td>
-                    <td class="table__right">
-                        <TextWithStars :stars="4">
-                            <AppTextSecondary>let</AppTextSecondary> js
-                        </TextWithStars>
-                    </td>
-                </tr>
-
-                <tr class="table__row">
-                    <td class="table__left">
-                        <TextWithStars :stars="3">
-                            <AppTextSecondary>type</AppTextSecondary> TypeScript
-                        </TextWithStars>
-                    </td>
-                    <td class="table__center">
-                        <TextWithStars :stars="3">
-                            <AppTextSecondary>&lt;?</AppTextSecondary>php
-                        </TextWithStars>
-                    </td>
-                    <td class="table__center">
-                        <TextWithStars :stars="3">
-                            <AppTextSecondary>SELECT</AppTextSecondary> mysql
-                        </TextWithStars>
-                    </td>
-                    <td class="table__right">
-                        <TextWithStars :stars="3">
-                            WordPress
-                        </TextWithStars>
+                    <td class="table__title">Lenguajes</td>
+                    <td class="table__info">
+                        <div class="flex-container">
+                            <span>
+                                <AppTextSecondary>&lt;</AppTextSecondary>html<AppTextSecondary>&gt;</AppTextSecondary>
+                            </span>
+                            <span>
+                                <AppTextSecondary>let</AppTextSecondary> js
+                            </span>
+                            <span>
+                                <AppTextSecondary>.</AppTextSecondary>css
+                            </span>
+                            <span>
+                                <AppTextSecondary>type</AppTextSecondary> TypeScript
+                            </span>
+                            <span>
+                                <AppTextSecondary>SELECT</AppTextSecondary> sql
+                            </span>
+                            <span>
+                                <AppTextSecondary>&lt;?</AppTextSecondary>php
+                            </span>
+                        </div>
                     </td>
                 </tr>
 
                 <tr class="table__row">
-                    <td class="table__left">
-                        <TextWithStars :stars="2">
-                            <AppTextSecondary>ref('</AppTextSecondary>vue<AppTextSecondary>')</AppTextSecondary>
-                        </TextWithStars>
-                    </td>
-                    <td class="table__center">
-                        <TextWithStars :stars="2">
-                            Nuxt
-                        </TextWithStars>
-                    </td>
-                    <td class="table__center">
-                        <TextWithStars :stars="2">
-                            <AppTextSecondary>@</AppTextSecondary>Angular<AppTextSecondary>()</AppTextSecondary>
-                        </TextWithStars>
-                    </td>
-                    <td class="table__right">
-                        <TextWithStars :stars="2">
-                            PocketBase
-                        </TextWithStars>
-                    </td>
-                </tr>
-
-                <tr class="table__row">
-                    <td class="table__left" colspan="3">
-                        <TextWithStars :stars="1">
-                            Capacitor
-                        </TextWithStars>
-                    </td>
-                    <td class="table__right">
-                        <TextWithStars :stars="1">
-                            Firebase
-                        </TextWithStars>
+                    <td class="table__title">Herramientas</td>
+                    <td class="table__info">
+                        <div class="flex-container">
+                            <span>Node</span>
+                            <span>
+                                <AppTextSecondary>ref('</AppTextSecondary>vue<AppTextSecondary>')</AppTextSecondary>
+                            </span>
+                            <span>Nuxt</span>
+                            <span>
+                                <AppTextSecondary>@</AppTextSecondary>Angular<AppTextSecondary>()</AppTextSecondary>
+                            </span>
+                            <span>Capacitor</span>
+                            <span>PocketBase</span>
+                            <span>WordPress</span>
+                            <span>Git</span>
+                            <span>Docker</span>
+                        </div>
                     </td>
                 </tr>
             </tbody>
         </table>
     </AppSection>
 </template>
+
+<style scoped>
+.flex-container {
+    justify-content: flex-end;
+}
+</style>

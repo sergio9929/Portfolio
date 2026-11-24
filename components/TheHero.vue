@@ -22,6 +22,22 @@ const sliderOptions = ref({
 })
 const currentBackgroundColor = computed(() => sliderData.value[currentElement.value].backgroundColor)
 const sliderData = ref([{
+    img: '/Imagen 13.png',
+    backgroundColor: '#dadee7',
+    theme: 'light',
+    borderColor: '',
+    link: '',
+    externalLink: 'https://play.google.com/store/apps/details?id=es.jma.keyreader',
+    title: 'JMA KeyReader',
+}, {
+    img: '/Imagen 14.png',
+    backgroundColor: '#dadee7',
+    theme: 'light',
+    borderColor: '',
+    link: '',
+    externalLink: 'https://play.google.com/store/apps/details?id=es.jma.keypro',
+    title: 'JMA KeyPro',
+}, {
     img: '/Imagen 12.png',
     backgroundColor: '#1f1f1f',
     theme: 'dark',
@@ -391,7 +407,7 @@ function jumpOutOfSlider() {
                         Ver</AppLinkSecondary>
                     <AppButton v-if="currentElement == sliderData.length - 1" icon="heroicons:arrow-down"
                         @click="jumpOutOfSlider" class="button--habilities" :theme="sliderData[currentElement].theme">
-                        Habilidades</AppButton>
+                        Tecnologías</AppButton>
                 </div>
 
                 <AppButtonSecondary
